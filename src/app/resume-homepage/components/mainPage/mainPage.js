@@ -92,7 +92,7 @@ export default function MainPage(props) {
         </Grid>
       </Grid> */}
       <Grid container spacing={0}>
-        <Grid item lg={12} md={12} sm={12} sx={12}>
+        <Grid item lg={12} md={12} sm={12} xs={12}>
           <CurrPage/>
         </Grid>
       </Grid>
