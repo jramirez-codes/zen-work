@@ -12,20 +12,20 @@ bullet = *
 */
 
 export default function ParseMarkdown(props) {
-  const imageData = useStaticQuery(graphql` {
-    allFile(filter: {sourceInstanceName: {eq: "portfolio"}, extension: {eq: "png"}}) {
-      edges {
-        node {
-          childrenImageSharp {
-            fluid {
-              src
-            }
-          }
-          relativePath
-        }
-      }
-    }
-  }`).allFile.edges
+  // const imageData = useStaticQuery(graphql` {
+  //   allFile(filter: {sourceInstanceName: {eq: "portfolio"}, extension: {eq: "png"}}) {
+  //     edges {
+  //       node {
+  //         childrenImageSharp {
+  //           fluid {
+  //             src
+  //           }
+  //         }
+  //         relativePath
+  //       }
+  //     }
+  //   }
+  // }`).allFile.edges
 
   const Large = (props) => {
     return(
@@ -79,11 +79,11 @@ export default function ParseMarkdown(props) {
           // console.log("new image", props.path+parsed[0])
           console.log("new data", imageData)
           console.log(parsed)
-          for(var i=0;i<imageData.length;i++) {
-            if(imageData[i].node.relativePath === parsed[0]) {
-              return(<img src={imageData[i].node.childrenImageSharp[0].fluid.src} alt="photo" key={i}/>)
-            }
-          }
+          // for(var i=0;i<imageData.length;i++) {
+          //   if(imageData[i].node.relativePath === parsed[0]) {
+          //     return(<img src={imageData[i].node.childrenImageSharp[0].fluid.src} alt="photo" key={i}/>)
+          //   }
+          // }
         }
         else {
           return(<p>{parsed.join(" ")}</p>)
