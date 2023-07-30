@@ -1,0 +1,38 @@
+.mainBackground {
+  background-color: #eff1f4;
+  height: 100%;
+  padding: 2%;
+}
+
+.mainContainer {
+  background-color: #eff1f4;
+  /* This centers */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90vw;
+  margin-left: 2vw;
+}
+
+.mainNav {
+  margin-left:'40vw';
+  background-color:"red";
+  width:"50vw";
+  height:"100px";
+}
+
+.mainGrid {
+  /* border-radius: 50px; */
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  border-top-right-radius: 50px;
+  background-color: #ffffff;
+  display: inline-block;
+  flex-direction: row;
+  align-items: start;
+  justify-content: start;
+  width: 100%;
+  min-height: 92vh;
+}
