@@ -60,19 +60,19 @@ export default function ParseMarkdown(props) {
         // console.log("parsed", parsed)
         if(parsed[0] === "#") {
           parsed.shift()
-          return(<Large data={parsed.join(" ")}/>)
+          return(<Large key={key}data={parsed.join(" ")}/>)
         }
         else if(parsed[0] === "##") {
           parsed.shift()
-          return(<Mid data={parsed.join(" ")}/>)
+          return(<Mid key={key} data={parsed.join(" ")}/>)
         }
         else if(parsed[0] === "###") {
           parsed.shift()
-          return(<Small data={parsed.join(" ")}/>)
+          return(<Small key={key} data={parsed.join(" ")}/>)
         }
         else if(parsed[0] === "*") {
           parsed.shift()
-          return(<Bullet data={parsed.join(" ")}/>)
+          return(<Bullet key={key} data={parsed.join(" ")}/>)
         }
         else if(parsed[0] === "[]") {
           parsed.shift()
@@ -86,7 +86,7 @@ export default function ParseMarkdown(props) {
           // }
         }
         else {
-          return(<p>{parsed.join(" ")}</p>)
+          return(<p key={key}>{parsed.join(" ")}</p>)
         }
       })}
     </>
