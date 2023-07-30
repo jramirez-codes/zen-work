@@ -1,0 +1,142 @@
+body {
+  background-color: #1C2021;
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Colors:
+c3073f
+950740
+2A2B2F input for table
+*/
+
+/* h4 is the control font */
+h4 {
+  margin:0;
+}
+
+button {
+  background-color: rgba(191, 191, 191, 0.1);
+  border-color: transparent;
+  padding: 2%;
+  border-radius: 5px;
+  /* border-color: gray; */
+  font-size: larger;
+  color: white;
+  /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+button:hover {
+  background-color: rgba(191, 191, 191, 0.5);
+}
+
+button:active {
+  background-color: #52af77;
+}
+
+.myTitle{
+  background-color: #161618;
+  margin: 0;
+  padding-bottom: 5px;
+}
+
+.mainPage {
+  color: white;
+  text-align: center;
+}
+
+.display {
+  border: 1px solid;
+  border-color: rgba(191, 191, 191, 0.1);
+  border-radius: 5px;
+  border-width: 2px;
+}
+
+/* Characters */
+h2 {
+  margin:0
+}
+
+/* input {
+  background-color: transparent;
+  border-color: gray;
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  border-radius: 5px;
+} */
+
+.timer {
+  background-color: transparent;
+  border: 2px solid;
+  border-color: gray;
+  color: white;
+  border-radius: 5px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 4px;
+  text-align: center;
+  font-size: large;
+} 
+
+.infoDiv {
+  background-color: #1C2021;
+  border: 2px solid;
+  border-color: transparent;
+  color: white;
+  border-radius: 5px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 1px;
+  text-align: center;
+  font-size: large;
+}
+
+.controls {
+  background-color: #2A2B2F;
+  padding: 2%;
+}
+
+.sizer {
+  background-color: #1C2021;
+  padding: 2%;
+  overflow-y: 'scroll';
+}
+
+.toggleDiv {
+  background-color: rgba(191, 191, 191, 0.5);
+  /* opacity: 50%; */
+  border: 2px solid;
+  border-color: transparent;
+  color: white;
+  border-radius: 5px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 1px;
+  text-align: center;
+  font-size: large;
+}
+
+.leaderboard {
+  background-color: #2A2B2F;
+  border-radius: 5px;
+  padding-bottom: 2vh;
+  max-width: 500px;
+}
+
+.results {
+  margin-top: 2vh;
+  background-color: #2A2B2F;
+  border-radius: 5px;
+  padding-bottom: 1vh;
+  padding-top: 1vh;
+  /* max-width: 300px; */
+  min-width: 250px;
+}
+
+.lastestRun {
+  border: #161618 solid 1px;
+  padding: 3%;
+  margin-top: 1vh;
+  border-radius: 20px;
+}
