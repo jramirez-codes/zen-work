@@ -45,7 +45,7 @@ export default function Skills() {
               <Grid container direction="row" spacing={1}>
                 {data.skills.hardSkills.languages.map((obj,idx)=>{
                   return(
-                    <Grid item sx={2}>
+                    <Grid item sx={2} key={obj+idx}>
                       <Chip key={obj+idx} label={obj} color="primary" variant="outlined" />
                     </Grid>
                   )
@@ -67,7 +67,7 @@ export default function Skills() {
           <Grid container direction="row" spacing={1}>
             {data.skills.softSkills.map((obj,idx)=>{
               return(
-                <Grid item sx={1}>
+                <Grid item sx={1} key={idx}>
                   <Chip key={idx} label={obj} color="primary" variant="outlined" />
                 </Grid>
               )
