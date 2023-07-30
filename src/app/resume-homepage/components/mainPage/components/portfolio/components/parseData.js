@@ -81,7 +81,7 @@ export default function ParseMarkdown(props) {
           console.log(parsed)
           for(var i=0;i<imageData.length;i++) {
             if(imageData[i].node.relativePath === parsed[0]) {
-              return(<img src={imageData[i].node.childrenImageSharp[0].fluid.src} alt="photo"/>)
+              return(<img src={imageData[i].node.childrenImageSharp[0].fluid.src} alt="photo" key={i}/>)
             }
           }
         }
