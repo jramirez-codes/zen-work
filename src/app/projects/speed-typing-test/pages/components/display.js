@@ -2,16 +2,16 @@ import React, {useEffect, useState, useRef} from "react";
 import ConfettiExplosion from 'react-confetti-explosion';
 import { Stack } from "@mui/material";
 
+const colorCode = {
+  correct: '#41b3a3',
+  incorrect: '#e27d60',
+  currIndex: '#085dcb'
+}
 export default function Display(props) {
   const [typeHistory, setTypeHistory] = useState([])
   const [displayData, setDisplayData] = useState([])
   const [confetti, setConfetti] = useState(false)
 
-  const colorCode = {
-    correct: '#41b3a3',
-    incorrect: '#e27d60',
-    currIndex: '#085dcb'
-  }
 
   // Refence is needed for Event Listener
   const typeHistoryRef = useRef(typeHistory)
