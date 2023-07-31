@@ -9,12 +9,12 @@
   "aboutMe": "As a computer engineer with a background in embedded systems and machine learning. I have experience in the design and development of computer systems and hardware, as well as a strong understanding of programming languages. In addition to my work in computer engineering, I have also gained experience in web development using the ReactJS framework. I am proficient in building high-performance web applications that can run on a variety of devices.",
   "workExp" : [
     {
-      "title": "Full Stack Developer I",
-      "company": "Jordanian American Merchandising",
+      "title": "Full Stack Developer II",
+      "company": "Data Delivers",
       "time": "Mar 2023 - Now",
       "infoPoints": [
         "Developed a web-based payment processor application with React JS and AWS Amplify",
-        "Create an ETL data pipeline for newly acquired clients using AWS Glue.",
+        "Created an ETL data pipeline for newly acquired clients using AWS Glue.",
         "Add new sample data to our technology stack."
       ]
     },
