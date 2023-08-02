@@ -68,7 +68,7 @@ export default function Background(props) {
 
         // Update States
         setBackgroundGradient(`linear-gradient(${angle}turn,${colorArr[0]},${colorArr[1]},${colorArr[2]})`)
-        setGradientClock((gradientClock + 1) % 3)
+        setGradientClock(gradientClock=>(gradientClock + 1) % 3)
       }, 200);
   
       return () => clearInterval(interval);
