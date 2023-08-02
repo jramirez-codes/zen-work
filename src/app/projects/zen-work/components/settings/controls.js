@@ -12,13 +12,12 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd';
 export default function Controls() {
   const currURL = useSelector((state)=>state.settings.displayUrl)
   const currOpacity = useSelector((state)=>state.settings.backgroundOpacity)
-  const currStyle = useSelector((state)=>state.settings.styleSettings)
+  // const currStyle = useSelector((state)=>state.settings.styleSettings)
   const [isHidden, setHidden] = useState(true)
   const dispatch = useDispatch()
   
   return(
-    <div className="paper" style={currStyle}>
-      <h1 style={{textAlign:'center'}}>Controls</h1>
+    <div>
       <Box sx={{flexGrow:1}}
         display="flex" 
         justifyContent="center"
@@ -28,26 +27,26 @@ export default function Controls() {
           <Grid item xs={12} sm={12} md={12} lg={12}>
             <Button 
             variant="outlined" 
-            fullWidth={true} 
+            fullWidth 
             onClick={()=>{dispatch(addWindow("timer"))}}
             startIcon={<TimerIcon />}
             >Timer</Button>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12}>
             <Button variant="outlined"
-            fullWidth={true} 
+            fullWidth 
             onClick={()=>{dispatch(addWindow("notepad"))}}
             startIcon={<NoteAddIcon />}>Notepad</Button>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12}>
             <Button variant="outlined" 
-            fullWidth={true}
+            fullWidth
             onClick={()=>{dispatch(addWindow("tasklist"))}}
             startIcon={<AddTaskIcon />}>Tasklist</Button>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12}>
             <Button variant="outlined" 
-            fullWidth={true} 
+            fullWidth 
             onClick={()=>{dispatch(addWindow("weather"))}}
             startIcon={<ThermostatIcon />}>Weather</Button>
           </Grid>
@@ -61,7 +60,7 @@ export default function Controls() {
             value={currURL} 
             onChange={(e)=>{dispatch(setDisplayUrl(e.target.value))}} 
             onBlur={()=>{dispatch(updateYoutubeUrl())}}
-            fullWidth={true}
+            fullWidth
           />
           <h3 style={{marginBottom:0}}>Background Opacity</h3>
           <Slider
@@ -69,7 +68,7 @@ export default function Controls() {
             min={0}
             value={currOpacity}
             step={.01}
-            fullWidth={true}
+            fullWidth
             valueLabelDisplay="auto"
             onChange={(e)=>{dispatch(updateOpacity(e.target.value))}}
           />

@@ -9,16 +9,6 @@ export default function Weather(props) {
 
   return(
     <div>
-      <h1 style={{margin:0, minWidth:200}}>Weather {props.windowIdx}</h1>
-      <IconButton variant="outlined"
-        style={{
-          position: 'absolute',
-          left: '85%',
-          top: '0'
-        }}
-      >
-        <ClearIcon size="small" onClick={()=>{dispatch(deleteWindow(parseInt(props.windowIdx)))}}/>
-      </IconButton>
     </div>
   )
 }

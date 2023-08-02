@@ -9,10 +9,11 @@ export const settings = createSlice({
     currentWindows: [],
     currentLayers: [],
     backgroundOpacity: 1,
+    backgroundType: 'gradient',
     styleSettings: {
       backgroundColor: 'rgba(255,255,255,1)',
       marginRight: 0
-    }
+    },
   },
   reducers: {
     // Youtube URL
@@ -59,7 +60,10 @@ export const settings = createSlice({
       state.styleSettings = {
         backgroundColor: 'rgba(255,255,255, '+state.backgroundOpacity+')'
       } 
-    }
+    },
+    updateBackgroundType: (state, action) => {
+      state.backgroundType = action.payload
+    },
   }
 })
 export const { 
@@ -69,7 +73,8 @@ export const {
   updateOpacity, 
   deleteWindow,
   onWindowHoverEnter,
-  onWindowHoverExit
+  onWindowHoverExit,
+  updateBackgroundType
 } = settings.actions
 
 export default settings.reducer

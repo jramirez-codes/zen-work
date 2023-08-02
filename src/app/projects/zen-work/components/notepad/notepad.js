@@ -9,20 +9,11 @@ export default function Notepad(props) {
 
   return(
     <div>
-      <h1 style={{margin:0, minWidth:200}}>Notepad {props.windowIdx}</h1>
-      <IconButton variant="outlined"
-        style={{
-          position: 'absolute',
-          left: '85%',
-          top: '0'
-        }}
-      >
-        <ClearIcon size="small" onClick={()=>{dispatch(deleteWindow(parseInt(props.windowIdx)))}}/>
-      </IconButton>
       <textarea style={{
         width:'100%',
         minWidth: 200,
-        border:0
+        border:0,
+        backgroundColor: 'transparent'
       }}/>
     </div>
   )
