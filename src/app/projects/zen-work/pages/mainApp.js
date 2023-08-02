@@ -32,7 +32,7 @@ export default function MainApp() {
   // Window resizing
   useEffect(()=>{
     const debounceHandler =  debounce(function handleResize() {
-      setDim(useWindowSize())
+      setDim([window.innerWidth, window.innerHeight])
     }, 1000)
     window.addEventListener('resize', debounceHandler)
     return ()=>{window.removeEventListener('resize', debounceHandler)}
