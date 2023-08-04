@@ -7,17 +7,18 @@ const delay = ms => new Promise(
 );
 
 export default function TaskItem(props) {
+  const [itemText, setItemText] = React.useState(props.item)
   async function handleDelete() {
     await delay(300);
     props.removeTask(props.idx)
   }
-
+  
   return(
     <>
-    {props.item !== ""?(
+    {props.item !== "" ? (
       <Stack direction="row" style={{marginBottom:-15}}>
         <Checkbox onClick={()=>{handleDelete()}}/>
-        <Input disableUnderline value={props.item}/>
+        <Input disableUnderline value={itemText} onChange={(e)=>{setItemText(e.target.value)}}/>
       </Stack>
     ):null}
     </>

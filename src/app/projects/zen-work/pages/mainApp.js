@@ -2,7 +2,6 @@ import React, {useState, useEffect, useRef} from "react";
 import './global.css' 
 import {useDispatch, useSelector} from "react-redux";
 import debounce from "../helperFunctions/debounce";
-import Controls from "../components/settings/controls";
 import ControlsV2 from "../components/settings/controlsV2";
 import { motion } from 'framer-motion'
 import { onWindowHoverEnter, onWindowHoverExit } from "../store/settingStore";
@@ -13,11 +12,12 @@ import Weather from "../components/weather/weather";
 import CustomCard from "../components/card/customCard";
 import Background from "../components/background/background";
 import Settings from "../components/settings/settings";
+import { initalizeData } from "../store/settingStore";
 
 export default function MainApp() {
+  const dispatch = useDispatch()
   const [dim, setDim] = useState([1,1])
   const constraintsRef = useRef(null)
-  const dispatch = useDispatch()
   const currURL = useSelector((state)=>state.settings.youtubeUrl)
   const currentWindows = useSelector((state)=>state.settings.currentWindows)
   const currStyle = useSelector((state)=>state.settings.styleSettings)
@@ -27,7 +27,10 @@ export default function MainApp() {
   // Inital Window Size
   useEffect(()=>{
     setDim([window.innerWidth, window.innerHeight])
+    dispatch(initalizeData())
   },[])
+
+  useEffect(()=>{},[currentWindows])
   
   // Window resizing
   useEffect(()=>{
@@ -53,28 +56,28 @@ export default function MainApp() {
             onHoverStart={()=>{dispatch(onWindowHoverEnter(idx))}} 
             onHoverEnd={()=>{dispatch(onWindowHoverExit(idx))}}
           >
-              {obj === 'timer'? (
-                <CustomCard key={idx} windowIdx={idx} title='Timer' currStyle={currStyle}>
+              {obj.windowType === 'timer'? (
+                <CustomCard key={idx} windowIdx={idx} title={obj.title} currStyle={currStyle}>
                   <TimeKeeper key={idx} expiryTimestamp={new Date()}/>
                 </CustomCard>  
               ):null}
-              {obj === 'notepad'? (
-                <CustomCard key={idx} windowIdx={idx} title='Notepad' currStyle={currStyle}>
-                  <Notepad key={idx} windowIdx={idx}/>
+              {obj.windowType === 'notepad'? (
+                <CustomCard key={idx} windowIdx={idx} title={obj.title} currStyle={currStyle}>
+                  <Notepad key={idx} windowIdx={idx} data={obj.data}/>
                 </CustomCard>
               ):null}
-              {obj === 'tasklist'? (
-                <CustomCard key={idx} windowIdx={idx} title='Tasklist' currStyle={currStyle}>
-                  <Tasklist key={idx} windowIdx={idx}/>
+              {obj.windowType === 'tasklist'? (
+                <CustomCard key={idx} windowIdx={idx} title={obj.title} currStyle={currStyle}>
+                  <Tasklist key={idx} windowIdx={idx} data={obj.data}/>
                 </CustomCard> 
               ):null}
-              {obj === 'weather'? (
-                <CustomCard key={idx} windowIdx={idx} title='Weather' currStyle={currStyle}>
+              {obj.windowType === 'weather'? (
+                <CustomCard key={idx} windowIdx={idx} title={obj.title} currStyle={currStyle}>
                   <Weather key={idx} windowIdx={idx}/>
                 </CustomCard>
               ):null}
-              {obj === 'settings'? (
-                <CustomCard key={idx} windowIdx={idx} title='Settings' currStyle={currStyle}>
+              {obj.windowType === 'settings'? (
+                <CustomCard key={idx} windowIdx={idx} title={obj.title} currStyle={currStyle}>
                   <Settings key={idx} windowIdx={idx}/>
                 </CustomCard>
               ):null}

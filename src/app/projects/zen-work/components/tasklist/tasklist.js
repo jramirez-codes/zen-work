@@ -2,20 +2,22 @@ import React from "react";
 import Checkbox from '@mui/material/Checkbox';
 import { Input, Stack } from "@mui/material";
 import TaskItem from "./components/taskItem";
-export default function Tasklist() {
-  const [tasks, setTasks] = React.useState([])
+import { useDispatch } from "react-redux";
+import { updateWindowData } from "../../store/settingStore";
+export default function Tasklist(props) {
   const [addTaskString, setAddTaskString] = React.useState("")
-
+  const dispatch = useDispatch()
+  
   function addTask() {
     if(addTaskString !== "") {
       let newTasks = []
-      for(let i=0; i<tasks.length; i++) {
-        if(tasks[i] !== "") {
-          newTasks.push(tasks[i])
+      for(let i=0; i<props.data.length; i++) {
+        if(props.data[i] !== "") {
+          newTasks.push(props.data[i])
         }
       }
       newTasks.push(addTaskString)
-      setTasks(newTasks)
+      dispatch(updateWindowData({idx: props.windowIdx, data: newTasks}))
       setAddTaskString("")
     }
   }
@@ -28,14 +30,14 @@ export default function Tasklist() {
 
   // Function remove item given array and index
   function removeTask(idx) {
-    let newTasks = Array.from(tasks)
+    let newTasks = Array.from(props.data)
     newTasks[idx] = ""
-    setTasks(newTasks)
+    dispatch(updateWindowData({idx: props.windowIdx, data: newTasks}))
   }
 
   return(
     <div style={{minWidth:100}}>
-      {tasks.map((obj,idx)=>{
+      {props.data.map((obj,idx)=>{
         return(
           <TaskItem 
             item={obj} 

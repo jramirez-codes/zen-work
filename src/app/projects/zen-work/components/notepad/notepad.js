@@ -1,12 +1,9 @@
-import React, {useEffect} from "react";
-import { useSelector, useDispatch } from 'react-redux'
-import { deleteWindow } from '../../store/settingStore'
-import { Stack, IconButton } from "@mui/material";
-import ClearIcon from '@mui/icons-material/Clear';
-
+import React from "react";
+import { useDispatch } from 'react-redux'
+import { updateWindowData } from "../../store/settingStore";
 export default function Notepad(props) {
   const dispatch = useDispatch()
-
+  const [notes, setNotes] = React.useState(props.data[0])
   return(
     <div>
       <textarea style={{
@@ -14,7 +11,11 @@ export default function Notepad(props) {
         minWidth: 200,
         border:0,
         backgroundColor: 'transparent'
-      }}/>
+      }}
+        value={notes}
+        onChange={(e)=>{setNotes(e.target.value)}}
+        onBlur={()=>{dispatch(updateWindowData({idx: props.windowIdx, data: [notes]}))}}
+      />
     </div>
   )
 }
