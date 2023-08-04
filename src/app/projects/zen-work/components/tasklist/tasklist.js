@@ -8,7 +8,7 @@ export default function Tasklist(props) {
   const [addTaskString, setAddTaskString] = React.useState("")
   const dispatch = useDispatch()
   
-  function addTask() {
+  async function addTask() {
     if(addTaskString !== "") {
       let newTasks = []
       for(let i=0; i<props.data.length; i++) {
@@ -22,9 +22,9 @@ export default function Tasklist(props) {
     }
   }
 
-  function handleKeyPress(key) {
+  async function handleKeyPress(key) {
     if(key === 'Enter') {
-      addTask()
+      await addTask()
     }
   }
 
@@ -38,14 +38,16 @@ export default function Tasklist(props) {
   return(
     <div style={{minWidth:100}}>
       {props.data.map((obj,idx)=>{
-        return(
-          <TaskItem 
-            item={obj} 
-            key={idx} 
-            idx={idx} 
-            removeTask={removeTask} 
-          />
-        )
+        if(obj !== '') {
+          return(
+            <TaskItem 
+              item={obj} 
+              key={idx} 
+              idx={idx} 
+              removeTask={removeTask}
+            />
+          )
+        }
       })}
       <Stack direction="row">
         <Checkbox disabled/>

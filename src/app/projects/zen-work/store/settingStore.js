@@ -85,6 +85,8 @@ export const settings = createSlice({
         state.currentWindows[action.payload].title = ''
         state.currentWindows[action.payload].data = [] 
       }
+      // Update Cache
+      window.localStorage.setItem(cacheName, zip(JSON.stringify(state)))
     },
     // UI Settings
     updateOpacity: (state, action) => {

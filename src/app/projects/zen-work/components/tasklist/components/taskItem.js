@@ -15,12 +15,10 @@ export default function TaskItem(props) {
   
   return(
     <>
-    {props.item !== "" ? (
       <Stack direction="row" style={{marginBottom:-15}}>
         <Checkbox onClick={()=>{handleDelete()}}/>
         <Input disableUnderline value={itemText} onChange={(e)=>{setItemText(e.target.value)}}/>
       </Stack>
-    ):null}
     </>
   )
 }
