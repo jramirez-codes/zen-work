@@ -10,14 +10,18 @@ export default function TaskItem(props) {
   const [itemText, setItemText] = React.useState(props.item)
   async function handleDelete() {
     await delay(300);
-    props.removeTask(props.idx)
+    props.updateTask(props.idx, "")
   }
-  
+
   return(
     <>
       <Stack direction="row" style={{marginBottom:-15}}>
         <Checkbox onClick={()=>{handleDelete()}}/>
-        <Input disableUnderline value={itemText} onChange={(e)=>{setItemText(e.target.value)}}/>
+        <Input disableUnderline value={itemText} 
+          onChange={(e)=>{setItemText(e.target.value)}}
+          onBlur={()=>{props.updateTask(props.idx, itemText)}}
+          multiline
+        />
       </Stack>
     </>
   )

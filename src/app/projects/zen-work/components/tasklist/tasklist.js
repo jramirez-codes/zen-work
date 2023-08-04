@@ -28,10 +28,10 @@ export default function Tasklist(props) {
     }
   }
 
-  // Function remove item given array and index
-  function removeTask(idx) {
+  // Update item given array and index
+  function updateTask(idx, value) {
     let newTasks = Array.from(props.data)
-    newTasks[idx] = ""
+    newTasks[idx] = value
     dispatch(updateWindowData({idx: props.windowIdx, data: newTasks}))
   }
 
@@ -44,10 +44,11 @@ export default function Tasklist(props) {
               item={obj} 
               key={idx} 
               idx={idx} 
-              removeTask={removeTask}
+              updateTask={updateTask}
             />
           )
         }
+        return null
       })}
       <Stack direction="row">
         <Checkbox disabled/>
