@@ -1,10 +1,13 @@
 // Generic Redux store file
 import { createSlice } from '@reduxjs/toolkit'
-
+import { zip, unzip } from './helperFunctions/zip'
 // WINDOW DATA TYPE
 // Ex. {windowType: STRING, title: STRING, data: ANY}
-
 const cacheName = 'my-zen-work'
+
+// MAYBE COMPRESS THE STATE
+// var compressed = compress(string)
+// var decompressed = LZString.decompressFromBase64(compressed)
 
 export const settings = createSlice({
   name: 'settings',
@@ -25,7 +28,7 @@ export const settings = createSlice({
     initalizeData:(state) => {
       let currData = window.localStorage.getItem(cacheName)
       if(currData !== null) {
-        currData = JSON.parse(currData)
+        currData = JSON.parse(unzip(currData))
 
         let keys = Object.keys(currData);
         // Update States
@@ -58,14 +61,13 @@ export const settings = createSlice({
     },
     updateWindowData: (state, action) => {
       state.currentWindows[action.payload.idx].data = action.payload.data
-
       // Update Cache
-      window.localStorage.setItem(cacheName, JSON.stringify(state))
+      window.localStorage.setItem(cacheName, zip(JSON.stringify(state)))
     },
     updateWindowTitle: (state, action) => {
       state.currentWindows[action.payload.idx].title = action.payload.data
       // Update Cache
-      window.localStorage.setItem(cacheName, JSON.stringify(state))
+      window.localStorage.setItem(cacheName, zip(JSON.stringify(state)))
     },
     deleteWindow: (state, action)=> {
       // Delete the last on from the window list
@@ -91,7 +93,7 @@ export const settings = createSlice({
         backgroundColor: 'rgba(255,255,255, '+action.payload+')'
       }
       // Update Cache
-      window.localStorage.setItem(cacheName, JSON.stringify(state))
+      window.localStorage.setItem(cacheName, zip(JSON.stringify(state)))
     },
     updateBackgroundColor: (state, action) => {
       state.styleSettings = {
@@ -101,7 +103,7 @@ export const settings = createSlice({
     updateBackgroundType: (state, action) => {
       state.backgroundType = action.payload
       // Update Cache
-      window.localStorage.setItem(cacheName, JSON.stringify(state))
+      window.localStorage.setItem(cacheName, zip(JSON.stringify(state)))
     },
   }
 })
