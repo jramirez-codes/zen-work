@@ -15,9 +15,10 @@ export default function TaskItem(props) {
 
   return(
     <>
-      <Stack direction="row" style={{marginBottom:-15}}>
+      <Stack direction="row" style={{marginBottom:-15}} alignItems="flex-start">
         <Checkbox onClick={()=>{handleDelete()}}/>
-        <Input disableUnderline value={itemText} 
+        <Input disableUnderline value={itemText}
+          style={{marginTop:5}} 
           onChange={(e)=>{setItemText(e.target.value)}}
           onBlur={()=>{props.updateTask(props.idx, itemText)}}
           multiline
