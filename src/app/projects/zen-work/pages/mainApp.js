@@ -49,7 +49,7 @@ export default function MainApp() {
         return(
           <motion.div 
             className="item" 
-            drag 
+            drag
             dragConstraints={constraintsRef} 
             key={idx}
             style={{zIndex:currLayers[idx]?3:2}}

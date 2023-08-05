@@ -19,7 +19,7 @@ export default function CustomCard(props) {
         alignItems="flex-start"
         sx={{marginTop:0, marginBottom:0, marginLeft:0, marginRight:0}}
       >
-        <Grid item xs={11} sm={11} md={11} lg={11} xl={11}>
+        <Grid item >
           <Input 
             disableUnderline 
             sx={{margin:0, textAlign:'left', fontSize:'1.5rem', fontWeight:'bold'}} 
@@ -27,8 +27,8 @@ export default function CustomCard(props) {
             onChange={(e)=>{dispatch(updateWindowTitle({idx: props.windowIdx, data: e.target.value}))}}
           />
         </Grid>
-        <Grid item xs={1} sm={1} md={1} lg={1} xl={1}>
-          <ClearIcon size="small" onClick={()=>{dispatch(deleteWindow(parseInt(props.windowIdx)))}}/>
+        <Grid item style={{marginRight:-12.5}}>
+          <ClearIcon size="large" onClick={()=>{dispatch(deleteWindow(parseInt(props.windowIdx)))}}/>
         </Grid>
       </Grid>
       {props.children}
