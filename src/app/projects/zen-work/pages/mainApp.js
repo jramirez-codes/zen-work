@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import debounce from "../helperFunctions/debounce";
 import ControlsV2 from "../components/settings/controlsV2";
 import { motion } from 'framer-motion'
-import { onWindowHoverEnter, onWindowHoverExit } from "../store/settingStore";
+import { onWindowHoverEnter, onWindowHoverExit, updateCurrWindowPosition } from "../store/settingStore";
 import TimeKeeper from "../components/timer/timeKeeper";
 import Notepad from "../components/notepad/notepad";
 import Tasklist from "../components/tasklist/tasklist";
@@ -50,7 +50,11 @@ export default function MainApp() {
           <motion.div 
             className="item" 
             drag
-            dragConstraints={constraintsRef} 
+            dragConstraints={constraintsRef}
+            whileDrag={{ scale: 1.05 }}
+            initial={{x: obj.windowPostion.x-(window.innerWidth/2), y: obj.windowPostion.y-(window.innerHeight/2)}}
+            // console.log(info.point.x, info.point.y)
+            onDragEnd={(event, info) => {dispatch(updateCurrWindowPosition({idx: idx, data: info.point}))}}
             key={idx}
             style={{zIndex:currLayers[idx]?3:2}}
             onHoverStart={()=>{dispatch(onWindowHoverEnter(idx))}} 

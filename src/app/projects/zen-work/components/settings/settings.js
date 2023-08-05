@@ -9,7 +9,7 @@ export default function Settings() {
   const dispatch = useDispatch()
 
   return(
-    <>
+    <div>
       <h3 style={{marginBottom:0, marginTop:0}}>Background Opacity</h3>
       <Slider
         max={1}
@@ -41,6 +41,6 @@ export default function Settings() {
         <ToggleButton value="gradient">Gradient</ToggleButton>
         <ToggleButton value="video">Youtube Video</ToggleButton>
       </ToggleButtonGroup>
-    </>
+    </div>
   )
 }

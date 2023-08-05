@@ -55,9 +55,16 @@ export const settings = createSlice({
       state.currentWindows.push({
         windowType: action.payload,
         title: action.payload.charAt(0).toUpperCase() + action.payload.slice(1),
-        data: []
+        data: [],
+        windowPostion: {x:0,y:0}
       })
       state.currentLayers.push(true)
+    },
+    updateCurrWindowPosition:(state, action) => {
+      state.currentWindows[action.payload.idx].windowPostion = action.payload.data
+      console.log(action.payload.data)
+      // Update Cache
+      window.localStorage.setItem(cacheName, zip(JSON.stringify(state)))
     },
     updateWindowData: (state, action) => {
       state.currentWindows[action.payload.idx].data = action.payload.data
@@ -83,7 +90,8 @@ export const settings = createSlice({
       else {
         state.currentWindows[action.payload].windowType = 'delete'
         state.currentWindows[action.payload].title = ''
-        state.currentWindows[action.payload].data = [] 
+        state.currentWindows[action.payload].data = []
+        state.currentWindows[action.payload].windowPostion = (0,0) 
       }
       // Update Cache
       window.localStorage.setItem(cacheName, zip(JSON.stringify(state)))
@@ -121,6 +129,7 @@ export const {
   , updateWindowData
   , updateWindowTitle
   , initalizeData
+  , updateCurrWindowPosition
 } = settings.actions
 
 export default settings.reducer

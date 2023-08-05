@@ -38,10 +38,11 @@ export default function ControlsV2() {
   return (
         <StyledSpeedDial
           ariaLabel="SpeedDial playground example"
-          icon={<SpeedDialIcon />}
+          icon={<SpeedDialIcon onClick={()=>{setIsOpen(!isOpen)}}/>}
           direction='down'
           open={isOpen}
-          onClick={()=>{setIsOpen(!isOpen)}}
+          // onClick={()=>{setIsOpen(!isOpen)}}
+          // onClose={()=>{setIsOpen(true)}}
         >
           {actions.map((action) => (
             <SpeedDialAction

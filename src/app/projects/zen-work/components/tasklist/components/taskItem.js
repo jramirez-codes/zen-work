@@ -18,7 +18,7 @@ export default function TaskItem(props) {
       <Stack direction="row" style={{marginBottom:-15}} alignItems="flex-start">
         <Checkbox onClick={()=>{handleDelete()}}/>
         <Input disableUnderline value={itemText}
-          style={{marginTop:5}} 
+          style={{marginTop:4}} 
           onChange={(e)=>{setItemText(e.target.value)}}
           onBlur={()=>{props.updateTask(props.idx, itemText)}}
           multiline

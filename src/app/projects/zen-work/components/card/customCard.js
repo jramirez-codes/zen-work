@@ -27,8 +27,10 @@ export default function CustomCard(props) {
             onChange={(e)=>{dispatch(updateWindowTitle({idx: props.windowIdx, data: e.target.value}))}}
           />
         </Grid>
-        <Grid item style={{marginRight:'-0.65vw', marginTop:-4}}>
-          <ClearIcon size="large" onClick={()=>{dispatch(deleteWindow(parseInt(props.windowIdx)))}}/>
+        <Grid item>
+          <div style={{position:'relative'}}>
+            <ClearIcon size="large" onClick={()=>{dispatch(deleteWindow(parseInt(props.windowIdx)))}}/>
+          </div>
         </Grid>
       </Grid>
       {props.children}
