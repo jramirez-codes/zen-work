@@ -56,7 +56,7 @@ export const settings = createSlice({
         windowType: action.payload,
         title: action.payload.charAt(0).toUpperCase() + action.payload.slice(1),
         data: [],
-        windowPostion: {x:0,y:0}
+        windowPostion: {x:window.innerWidth/2,y:window.innerHeight/2}
       })
       state.currentLayers.push(true)
     },

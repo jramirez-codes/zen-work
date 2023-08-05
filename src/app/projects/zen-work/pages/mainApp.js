@@ -53,7 +53,6 @@ export default function MainApp() {
             dragConstraints={constraintsRef}
             whileDrag={{ scale: 1.05 }}
             initial={{x: obj.windowPostion.x-(window.innerWidth/2), y: obj.windowPostion.y-(window.innerHeight/2)}}
-            // console.log(info.point.x, info.point.y)
             onDragEnd={(event, info) => {dispatch(updateCurrWindowPosition({idx: idx, data: info.point}))}}
             key={idx}
             style={{zIndex:currLayers[idx]?3:2}}
