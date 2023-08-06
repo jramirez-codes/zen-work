@@ -4,6 +4,11 @@ import { updateWindowData } from "../../store/settingStore";
 export default function Notepad(props) {
   const dispatch = useDispatch()
   const [notes, setNotes] = React.useState(props.data[0]===null? "": props.data[0])
+
+  React.useEffect(()=>{
+    React.useState(props.data[0]===null? "": props.data[0])
+  },[props.data])
+
   return(
     <div>
       <textarea style={{
