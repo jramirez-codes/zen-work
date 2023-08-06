@@ -41,8 +41,8 @@ export default function Settings() {
         <ToggleButton value="gradient">Gradient</ToggleButton>
         <ToggleButton value="video">Youtube Video</ToggleButton>
       </ToggleButtonGroup>
-      <h3 style={{marginBottom:5, marginTop:5}}>Organize Cards</h3>
-      <Button variant="outlined" fullWidth onClick={()=>{dispatch(organizeCards())}}>Organize</Button>
+      {/* <h3 style={{marginBottom:5, marginTop:5}}>Organize Cards</h3>
+      <Button variant="outlined" fullWidth onClick={()=>{dispatch(organizeCards())}}>Organize</Button> */}
       {currProject !== 'my-zen-work-home'? (
         <>
           <h3 style={{marginBottom:5, marginTop:5}}>Delete Project</h3>

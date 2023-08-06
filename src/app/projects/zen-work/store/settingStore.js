@@ -65,8 +65,22 @@ export const settings = createSlice({
             projects: projects
           })))
 
-          // Update State
+          // Update Project States
           state.projects = projects
+          state.cacheName = cacheHome
+
+          // Load Home State
+          let newState = window.localStorage.getItem(cacheHome)
+          // Update Local States
+          if(newState !== null && newState !== "") {
+            newState = JSON.parse(unzip(newState))
+            let keys = Object.keys(newState);
+            for(let i=0;i<keys.length;i++) {
+              if(keys[i] !== 'projects' && keys[i] !== 'cacheName') {
+                state[keys[i]] = newState[keys[i]]
+              }
+            }
+          }
         }
       }
     },
@@ -112,13 +126,6 @@ export const settings = createSlice({
         for(let i=0;i<keys.length;i++) {
           if(keys[i] !== 'projects' && keys[i] !== 'cacheName') {
             state[keys[i]] = newState[keys[i]]
-            // if(keys[i] === 'currentWindows') {
-            //   state.currentWindows[i].windowAnimation = {
-            //     x: state.currentWindows[i].windowPosition - window.innerWidth/2,
-            //     y: state.currentWindows[i].windowPosition - window.innerHeight/2,
-            //     transition: {duration: 0}
-            //   }
-            // }
           }
         }
       }
@@ -127,7 +134,6 @@ export const settings = createSlice({
     // Inital Window Load
     initalizeData:(state) => {
       if(window === undefined) {
-        // console.log("no window")
         return 
       }
 
@@ -181,8 +187,7 @@ export const settings = createSlice({
         windowType: action.payload,
         title: action.payload.charAt(0).toUpperCase() + action.payload.slice(1),
         data: [],
-        // windowPosition: {x:window.innerWidth/2,y:window.innerHeight/2},
-        windowPosition: {x:0,y:0},
+        windowPosition: {x:window.innerWidth/2,y:window.innerHeight/2},
         windowSize: {h:0,w:0},
         windowAnimation: "hidden"
       })

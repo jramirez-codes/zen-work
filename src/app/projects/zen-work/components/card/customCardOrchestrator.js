@@ -60,8 +60,7 @@ export default function CustomCardOrchestrator({obj, idx, currStyle, currLayers,
     setCurrSize({h:sizeRef.current.clientHeight,w:sizeRef.current.clientWidth});
   },[sizeRef])
 
-  return(
-    
+  return(  
     <motion.div 
       className="item" 
       drag
@@ -73,7 +72,7 @@ export default function CustomCardOrchestrator({obj, idx, currStyle, currLayers,
       whileDrag={{ scale: 1.05 }}
       onDragEnd={(_, info) => {dispatch(updateCurrWindowPosition({idx: idx, data: info.point}))}}
       key={idx}
-      style={{zIndex:currLayers[idx]?3:2}}
+      style={{zIndex:currLayers[idx]?3:2, position:'absolute', minWidth:100, minHeight:100}}
       onHoverStart={()=>{dispatch(onWindowHoverEnter(idx))}} 
       onHoverEnd={()=>{dispatch(onWindowHoverExit(idx))}}
       ref={sizeRef}
