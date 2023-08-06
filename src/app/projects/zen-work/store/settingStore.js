@@ -46,7 +46,7 @@ export const settings = createSlice({
     // State Swapping
     deleteState: (state, action) => {
       // Delete and Update State
-      let toDelete = window.confirm("Are you sure you want to delte", action.payload);
+      let toDelete = window.confirm("Are you sure you want to delete "+action.payload);
       if (toDelete) {
         createCleanState(state, {payload:'home'})
         localStorage.removeItem(state.cacheName = cachePrefix + action.payload);
