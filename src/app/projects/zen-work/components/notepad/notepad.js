@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { updateWindowData } from "../../store/settingStore";
 export default function Notepad(props) {
   const dispatch = useDispatch()
-  const [notes, setNotes] = React.useState(props.data[0])
+  const [notes, setNotes] = React.useState(props.data[0]===null? "": props.data[0])
   return(
     <div>
       <textarea style={{
