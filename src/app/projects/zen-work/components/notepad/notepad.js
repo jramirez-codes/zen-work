@@ -6,7 +6,9 @@ export default function Notepad(props) {
   const [notes, setNotes] = React.useState(props.data[0]===null? "": props.data[0])
 
   React.useEffect(()=>{
-    React.useState(props.data[0]===null? "": props.data[0])
+    if(props.data !== null) {
+      React.useState(props.data[0]===null? "": props.data[0])
+    }
   },[props.data])
 
   return(
