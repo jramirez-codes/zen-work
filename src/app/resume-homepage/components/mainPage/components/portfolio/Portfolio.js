@@ -37,7 +37,7 @@ export default function Portfolio() {
   const setNewData = (title) => {
     var newData = []
     for(var i=0;i<data.length;i++) {
-      // console.log("New update", projectTitle, data[i].node.frontmatter.title)
+      // // console.log("New update", projectTitle, data[i].node.frontmatter.title)
       if(title !== data[i].node.frontmatter.title) {
         newData.push(data[i])
       }
@@ -72,7 +72,7 @@ export default function Portfolio() {
     }
       <Grid container spacing={2}>
         {allData.map((val,key)=>{
-          // console.log(val, key, projectKey)
+          // // console.log(val, key, projectKey)
           return(
             <Grid item key={key}>
               <motion.div

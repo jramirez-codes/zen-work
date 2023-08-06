@@ -10,7 +10,7 @@ export default function ImgMediaCard(props) {
   const handleOnClick = () => {
     var newData = props.data.node.frontmatter.currData.split("\n")
     // [props.data.node.frontmatter.title]
-    console.log(newData)
+    // console.log(newData)
     
     props.update(newData)
     props.newTitle(props.data.node.frontmatter.title)

@@ -57,7 +57,7 @@ export default function ParseMarkdown(props) {
         while(parsed[0] === "") {
           parsed.shift()
         }
-        // console.log("parsed", parsed)
+        // // console.log("parsed", parsed)
         if(parsed[0] === "#") {
           parsed.shift()
           return(<Large key={key}data={parsed.join(" ")}/>)
@@ -76,9 +76,9 @@ export default function ParseMarkdown(props) {
         }
         else if(parsed[0] === "[]") {
           parsed.shift()
-          // console.log("new image", props.path+parsed[0])
-          console.log("new data", imageData)
-          console.log(parsed)
+          // // console.log("new image", props.path+parsed[0])
+          // console.log("new data", imageData)
+          // console.log(parsed)
           // for(var i=0;i<imageData.length;i++) {
           //   if(imageData[i].node.relativePath === parsed[0]) {
           //     return(<img src={imageData[i].node.childrenImageSharp[0].fluid.src} alt="photo" key={i}/>)

@@ -10,7 +10,7 @@ export default function TypeToggle(props) {
 
 
   function handleClick(genType) {
-    console.log("toggle clicked ", genType)
+    // console.log("toggle clicked ", genType)
     props.setGenType(genType)
     if(genType === "RS") {
       setCurrStyle([colorCode.unset, colorCode.set])

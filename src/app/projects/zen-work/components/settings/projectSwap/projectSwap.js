@@ -21,7 +21,7 @@ const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
   },
 }));
 
-export default function ProjectSwap() {
+export default function ProjectSwap(props) {
   const dispatch = useDispatch()
   const [isOpen, setIsOpen] = React.useState(true)
   const projects = useSelector(e=>e.settings.projects)
@@ -29,23 +29,24 @@ export default function ProjectSwap() {
   return (
     <StyledSpeedDial
       ariaLabel="Projects"
-      icon={<TopicIcon onClick={()=>{setIsOpen(!isOpen)}}/>}
+      icon={<TopicIcon onClick={()=>{props.setToggleButton(!props.toggleButton)}}/>}
       direction='right'
-      open={isOpen}
-      onClick={()=>{setIsOpen(!isOpen)}}
-      sx={{position:'absolute', marginLeft:-3, marginTop:-3}}
+      open={props.toggleButton}
+      sx={{ position: 'absolute', top:0, left: 0 }}
     >
       <SpeedDialAction
           icon={<HomeIcon onClick={()=>{dispatch(swapState("home"))}} color={currProject === 'my-zen-work-home'?'primary':''}/>}
           tooltipTitle={'Home'}
       />
-      {projects.map((obj, idx) => (
-        <SpeedDialAction
-          key={idx}
-          icon={<TaskIcon onClick={()=>{dispatch(swapState(obj))}} color={currProject === 'my-zen-work-'+obj?'primary':''}/>}
-          tooltipTitle={obj}
-        />
-      ))}
+      {projects !== undefined ? projects.map((obj, idx) => {
+        return(
+          <SpeedDialAction
+            key={idx}
+            icon={<TaskIcon onClick={()=>{dispatch(swapState(obj))}} color={currProject === 'my-zen-work-'+obj?'primary':''}/>}
+            tooltipTitle={obj}
+          />
+        )
+      }): null}
       <SpeedDialAction
           icon={<AddIcon onClick={()=>{dispatch(addState("newProject"))}}/>}
           tooltipTitle={'Add Project'}

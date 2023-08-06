@@ -24,7 +24,7 @@ export function zip (s) {
     }
     return utoa(out.join(''))
   } catch (e) {
-    console.log('Failed to zip string return empty string', e)
+    // console.log('Failed to zip string return empty string', e)
     return ''
   }
 }
@@ -55,7 +55,7 @@ export function unzip (base64ZippedString) {
     }
     return out.join('')
   } catch (e) {
-    console.log('Failed to unzip string return empty string', e)
+    // console.log('Failed to unzip string return empty string', e)
     return ''
   }
 }

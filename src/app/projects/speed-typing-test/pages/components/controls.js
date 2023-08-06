@@ -94,7 +94,7 @@ export default function Controls(props) {
         alert("Number of word must be a integer")
         setWords(5)
       }
-      console.log("button Clicked")
+      // console.log("button Clicked")
     }
 
   }

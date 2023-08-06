@@ -24,9 +24,8 @@ const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
   },
 }));
 
-export default function ControlsV2() {
+export default function ControlsV2(props) {
   const dispatch = useDispatch()
-  const [isOpen, setIsOpen] = React.useState(true)
 
   const actions = [
     { icon: <TimerIcon onClick={()=>{dispatch(addWindow("timer"))}}/>, name: 'Timer' },
@@ -34,7 +33,7 @@ export default function ControlsV2() {
     { icon: <AddTaskIcon onClick={()=>{dispatch(addWindow("tasklist"))}}/>, name: 'Tasklist' },
     { icon: <NoteAddIcon onClick={()=>{dispatch(addWindow("notepad"))}}/>, name: 'Notepad' },
     { icon: <SettingsIcon onClick={()=>{dispatch(addWindow("settings"))}}/>, name: 'Settings' },
-    // { icon: <ProjectSwap onClick={()=>{dispatch(addWindow("settings"))}}/>, name: 'Projects' },
+    // { icon: <ProjectSwap/>, name: 'Projects' },
   ];
 
   return (
@@ -42,7 +41,7 @@ export default function ControlsV2() {
           ariaLabel="SpeedDial playground example"
           icon={<SpeedDialIcon onClick={()=>{setIsOpen(!isOpen)}}/>}
           direction='down'
-          open={isOpen}
+          open={props.toggleButton}
           sx={{ position: 'absolute', top:0, left: 0 }}
         >
           {actions.map((action) => {

@@ -7,6 +7,7 @@ import { motion } from 'framer-motion'
 import Background from "../components/background/background";
 import { initalizeData } from "../store/settingStore";
 import CustomCardOrchestrator from "../components/card/customCardOrchestrator";
+import ProjectSwap from "../components/settings/projectSwap/projectSwap";
 
 export default function MainApp() {
   const dispatch = useDispatch()
@@ -17,7 +18,7 @@ export default function MainApp() {
   const currStyle = useSelector((state)=>state.settings.styleSettings)
   const currLayers = useSelector(state=>state.settings.currentLayers)
   const currBackgroundType = useSelector(state=>state.settings.backgroundType)
-  
+  const [toggleButton, setToggleButton] = useState(true)
   // useEffect(()=>{
   // },[])
   // Inital Window Data
@@ -42,7 +43,8 @@ export default function MainApp() {
     <>
       <motion.div className="container" ref={constraintsRef} style={{width:dim[0], height:dim[1]}}>
         <Background width={dim[0]} height={dim[1]} currURL={currURL} backgroundType={currBackgroundType}/>
-        <ControlsV2/>
+        <ControlsV2 toggleButton={toggleButton} />
+        <ProjectSwap toggleButton={toggleButton}setToggleButton={setToggleButton}/>
         {currentWindows.map((obj, idx) => {
           return(
               <CustomCardOrchestrator 

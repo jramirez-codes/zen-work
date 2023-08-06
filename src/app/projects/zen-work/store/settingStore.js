@@ -73,6 +73,9 @@ export const settings = createSlice({
     addState: (state, action) => {
       // Stupid things for project name
       let projectName = window.prompt("Enter Project Name");
+      if(projectName === '') {
+        return
+      }
       action.payload = projectName
       
       // Push new State
@@ -124,7 +127,7 @@ export const settings = createSlice({
     // Inital Window Load
     initalizeData:(state) => {
       if(window === undefined) {
-        console.log("no window")
+        // console.log("no window")
         return 
       }
 
@@ -148,7 +151,7 @@ export const settings = createSlice({
               state[keys[i]] = currData[keys[i]]
             }
           }
-          console.log(currData)
+          // console.log(currData)
         }
         state.cacheName = cacheName
       }
@@ -187,7 +190,7 @@ export const settings = createSlice({
     },
     updateCurrWindowPosition:(state, action) => {
       state.currentWindows[action.payload.idx].windowPosition = action.payload.data
-      // console.log(action.payload.data)
+      // // console.log(action.payload.data)
       // Update Cache
       window.localStorage.setItem(state.cacheName, zip(JSON.stringify(state)))
     },
@@ -240,7 +243,7 @@ export const settings = createSlice({
       
       // Organize Card Animation Position
       currData = organizeCardPositions(currData)
-      console.log(currData)
+      // console.log(currData)
       // Update States
       for(let i=0; i < currData.length-1; i++) {
         state.currentWindows[i].windowAnimation = {
