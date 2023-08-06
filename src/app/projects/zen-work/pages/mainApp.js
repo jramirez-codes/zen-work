@@ -17,40 +17,46 @@ export default function MainApp() {
   const currStyle = useSelector((state)=>state.settings.styleSettings)
   const currLayers = useSelector(state=>state.settings.currentLayers)
   const currBackgroundType = useSelector(state=>state.settings.backgroundType)
-  // const controls = useAnimationControls()
-
+  
+  // useEffect(()=>{
+  // },[])
   // Inital Window Data
   useEffect(()=>{
-    // setDim([window.innerWidth, window.innerHeight])
+    setDim([window.innerWidth, window.innerHeight])
     dispatch(initalizeData())
   },[])
+  
   
   // Window resizing
   useEffect(()=>{
     const debounceHandler =  debounce(function handleResize() {
-      setDim([window.innerWidth, window.innerHeight])
+      if(window !== undefined) {
+        setDim([window.innerWidth, window.innerHeight])
+      }
     }, 1000)
     window.addEventListener('resize', debounceHandler)
     return ()=>{window.removeEventListener('resize', debounceHandler)}
   },[])
 
   return(
-    <motion.div className="container" ref={constraintsRef} style={{width:dim[0], height:dim[1]}}>
-      <Background width={dim[0]} height={dim[1]} currURL={currURL} backgroundType={currBackgroundType}/>
-      <ControlsV2/>
-      {currentWindows.map((obj, idx) => {
-        return(
-            <CustomCardOrchestrator 
-              obj={obj} 
-              idx={idx} 
-              currStyle={currStyle} 
-              currLayers={currLayers} 
-              constraintsRef={constraintsRef}
-              key={idx}
-              currAnimation={obj.windowAnimation}
-            />
-          )
-        })}
-    </motion.div>
+    <>
+      <motion.div className="container" ref={constraintsRef} style={{width:dim[0], height:dim[1]}}>
+        <Background width={dim[0]} height={dim[1]} currURL={currURL} backgroundType={currBackgroundType}/>
+        <ControlsV2/>
+        {currentWindows.map((obj, idx) => {
+          return(
+              <CustomCardOrchestrator 
+                obj={obj} 
+                idx={idx} 
+                currStyle={currStyle} 
+                currLayers={currLayers} 
+                constraintsRef={constraintsRef}
+                key={idx}
+                currAnimation={obj.windowAnimation}
+              />
+            )
+          })}
+      </motion.div>
+    </>
   )
 }

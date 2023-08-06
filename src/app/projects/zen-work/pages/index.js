@@ -5,8 +5,8 @@ import MainApp from "./mainApp";
 
 export default function IndexPage() {
   return(
-    <Provider store={store}>
-      <MainApp/>
-    </Provider>
+      <Provider store={store}>
+        <MainApp/>
+      </Provider>
   )
 }

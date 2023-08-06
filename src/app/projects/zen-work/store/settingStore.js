@@ -69,13 +69,12 @@ export const settings = createSlice({
           state.projects = projects
         }
       }
-
-
-
     },
     addState: (state, action) => {
+      // Stupid things for project name
       let projectName = window.prompt("Enter Project Name");
       action.payload = projectName
+      
       // Push new State
       state.projects.push(action.payload)
       
@@ -124,6 +123,11 @@ export const settings = createSlice({
     },
     // Inital Window Load
     initalizeData:(state) => {
+      if(window === undefined) {
+        console.log("no window")
+        return 
+      }
+
       // Get Config
       let configData = window.localStorage.getItem(cacheConfig)
       let currProject
@@ -132,7 +136,7 @@ export const settings = createSlice({
         state.projects = configData.projects
         currProject = configData.currProject
 
-        // Get Window Data
+        // Get State Data
         let cacheName = cachePrefix+currProject
         let currData = window.localStorage.getItem(cacheName)
         if(currData !== null && currData !== "") {
@@ -144,8 +148,8 @@ export const settings = createSlice({
               state[keys[i]] = currData[keys[i]]
             }
           }
+          console.log(currData)
         }
-        console.log(currData)
         state.cacheName = cacheName
       }
       else {
@@ -174,7 +178,8 @@ export const settings = createSlice({
         windowType: action.payload,
         title: action.payload.charAt(0).toUpperCase() + action.payload.slice(1),
         data: [],
-        windowPosition: {x:window.innerWidth/2,y:window.innerHeight/2},
+        // windowPosition: {x:window.innerWidth/2,y:window.innerHeight/2},
+        windowPosition: {x:0,y:0},
         windowSize: {h:0,w:0},
         windowAnimation: "hidden"
       })
