@@ -13,6 +13,10 @@ export default function TaskItem(props) {
     props.updateTask(props.idx, "")
   }
 
+  React.useEffect(()=>{
+    setItemText(props.item)
+  },[props.item])
+
   return(
     <>
       <Stack direction="row" style={{marginBottom:-15}} alignItems="flex-start">
