@@ -10,7 +10,7 @@ import CustomCardOrchestrator from "../components/card/customCardOrchestrator";
 
 export default function MainApp() {
   const dispatch = useDispatch()
-  const [dim, setDim] = useState([window.innerWidth, window.innerHeight])
+  const [dim, setDim] = useState([1, 1])
   const constraintsRef = useRef(null)
   const currURL = useSelector((state)=>state.settings.youtubeUrl)
   const currentWindows = useSelector((state)=>state.settings.currentWindows)
