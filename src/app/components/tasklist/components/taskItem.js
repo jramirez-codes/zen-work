@@ -26,6 +26,7 @@ export default function TaskItem(props) {
           onChange={(e)=>{setItemText(e.target.value)}}
           onBlur={()=>{props.updateTask(props.idx, itemText)}}
           multiline
+          fullWidth
         />
       </Stack>
     </>
