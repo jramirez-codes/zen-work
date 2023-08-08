@@ -79,8 +79,8 @@ export default function Background(props) {
   <div>
     {props.backgroundType === 'video'? (
       <iframe 
-        width={props.width}
-        height={props.height}
+        width='100vw'
+        height='100vh'
         src={props.currURL+'?enablejsapi=1&autoplay=1&rel=0'}
         // src={`https://www.youtube.com/embed/${currURL}`}
         title="YouTube video player"
@@ -91,7 +91,7 @@ export default function Background(props) {
       />
     ):null}
     {props.backgroundType === 'gradient'? (
-      <div style={{position:"fixed", marginLeft:'-50vw', marginTop:'-50vh', width:props.width, height:props.height, background: backgroundGradient}}/>
+      <div style={{position:"fixed", marginLeft:'-50vw', marginTop:'-50vh', width:'100vw', height:'100vh', background: backgroundGradient}}/>
     ): null}
   </div>
   )
