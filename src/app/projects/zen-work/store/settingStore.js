@@ -205,6 +205,7 @@ export const settings = createSlice({
       window.localStorage.setItem(state.cacheName, zip(JSON.stringify(state)))
     },
     updateAnyWindowDataTypeAndCache: (state, action)=> {
+      console.log(action.payload.idx, action.payload.dataType)
       state.currentWindows[action.payload.idx][action.payload.dataType] = action.payload.data
       // Update Cache
       window.localStorage.setItem(state.cacheName, zip(JSON.stringify(state)))

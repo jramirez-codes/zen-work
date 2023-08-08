@@ -16,9 +16,9 @@ h1 {
 }
 
 .item {
-  border-radius: inherit;
+  /* border-radius: inherit; */
   z-index: 2;
-  position: fixed;
+  position:fixed
 }
 
 .paper {

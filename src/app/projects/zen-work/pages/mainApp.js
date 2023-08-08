@@ -3,7 +3,6 @@ import './global.css'
 import {useDispatch, useSelector} from "react-redux";
 import debounce from "../helperFunctions/debounce";
 import ControlsV2 from "../components/settings/controlsV2";
-import { motion } from 'framer-motion'
 import Background from "../components/background/background";
 import { initalizeData } from "../store/settingStore";
 import CustomCardOrchestrator from "../components/card/customCardOrchestrator";

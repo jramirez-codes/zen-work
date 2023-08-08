@@ -1,7 +1,7 @@
 import React from "react";
 import {useDispatch } from "react-redux";
 import { motion, useAnimationControls } from 'framer-motion'
-import { onWindowHoverEnter, onWindowHoverExit, updateAnyWindowDataTypeAndCache, updateCurrWindowPosition, updateAnyWindowDataType } from "../../store/settingStore";
+import { onWindowHoverEnter, onWindowHoverExit, updateAnyWindowDataTypeAndCache, updateAnyWindowDataType } from "../../store/settingStore";
 import TimeKeeper from "../timer/timeKeeper";
 import Notepad from "../notepad/notepad";
 import Tasklist from "../tasklist/tasklist";
@@ -9,7 +9,7 @@ import Weather from "../weather/weather";
 import CustomCard from "./customCard";
 import Settings from "../settings/settings";
 
-export default function CustomCardOrchestrator({obj, idx, currStyle, currLayers, constraintsRef, currAnimation}) {
+export default function CustomCardOrchestrator({obj, idx, currStyle, currLayers, currAnimation}) {
   const dispatch = useDispatch()
   const controls = useAnimationControls()
   const [currSize, setCurrSize] = React.useState({h:0,w:0})
@@ -61,25 +61,22 @@ export default function CustomCardOrchestrator({obj, idx, currStyle, currLayers,
   },[sizeRef])
 
   return(  
-    <motion.div 
-      className="item" 
-      drag
-      // animate={{opacity: 1, scale: 1}}
-      animate={controls}
-      // transition={{duration:0.3}}
-      initial={{opacity: 1, scale: 1, x: obj.windowPosition.x-(window.innerWidth/2), y: obj.windowPosition.y-(window.innerHeight/2)}}
-      whileDrag={{ scale: 1.05 }}
-      onDragEnd={(_, info) => {dispatch(updateCurrWindowPosition({idx: idx, data: info.point}))}}
-      key={idx}
-      style={{zIndex:currLayers[idx]?3:2, position:'absolute', minWidth:100, minHeight:100}}
-      onHoverStart={()=>{dispatch(onWindowHoverEnter(idx))}} 
-      onHoverEnd={()=>{dispatch(onWindowHoverExit(idx))}}
-      ref={sizeRef}
-    >
+    <>
+      <motion.div 
+        ref={sizeRef} 
+        drag 
+        style={{minWidth:100, minHeight:100, zIndex:currLayers[idx]?3:2, position:'absolute'}}
+        initial={{opacity: 1, scale: 1, x: obj.windowPosition.x-(window.innerWidth/2), y: obj.windowPosition.y-(window.innerHeight/2)}}
+        whileDrag={{ scale: 1.05 }}
+        onDragEnd={(_, info) => {dispatch(updateAnyWindowDataTypeAndCache({idx: idx, data: info.point, dataType: 'windowPosition'}))}}
+        key={idx}
+        onHoverStart={()=>{dispatch(onWindowHoverEnter(idx))}} 
+        onHoverEnd={()=>{dispatch(onWindowHoverExit(idx))}}
+      >
         {obj.windowType === 'timer'? (
           <CustomCard key={idx} windowIdx={idx} title={obj.title} currStyle={currStyle}>
             <TimeKeeper key={idx} expiryTimestamp={new Date()}/>
-          </CustomCard>  
+          </CustomCard>
         ):null}
         {obj.windowType === 'notepad'? (
           <CustomCard key={idx} windowIdx={idx} title={obj.title} currStyle={currStyle}>
@@ -101,6 +98,7 @@ export default function CustomCardOrchestrator({obj, idx, currStyle, currLayers,
             <Settings key={idx} windowIdx={idx}/>
           </CustomCard>
         ):null}
-    </motion.div>
+      </motion.div>
+    </>
   )
 }
