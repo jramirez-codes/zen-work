@@ -23,7 +23,6 @@ const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
 
 export default function ProjectSwap(props) {
   const dispatch = useDispatch()
-  const [isOpen, setIsOpen] = React.useState(true)
   const projects = useSelector(e=>e.settings.projects)
   const currProject = useSelector(e=>e.settings.cacheName)
   return (

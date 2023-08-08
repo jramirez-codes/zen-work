@@ -64,7 +64,7 @@ export default function CustomCardOrchestrator({obj, idx, currStyle, currLayers,
     <>
       <motion.div 
         ref={sizeRef} 
-        drag 
+        drag
         style={{minWidth:100, minHeight:100, zIndex:currLayers[idx]?3:2, position:'absolute'}}
         initial={{opacity: 1, scale: 1, x: obj.windowPosition.x-(window.innerWidth/2), y: obj.windowPosition.y-(window.innerHeight/2)}}
         whileDrag={{ scale: 1.05 }}
