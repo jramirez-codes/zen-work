@@ -53,7 +53,7 @@ export default function MainApp() {
                 idx={idx} 
                 currStyle={currStyle} 
                 currLayers={currLayers} 
-                constraintsRef={constraintsRef}
+                // constraintsRef={constraintsRef}
                 key={idx}
                 currAnimation={obj.windowAnimation}
               />

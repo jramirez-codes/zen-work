@@ -64,7 +64,6 @@ export default function CustomCardOrchestrator({obj, idx, currStyle, currLayers,
     <motion.div 
       className="item" 
       drag
-      dragConstraints={constraintsRef}
       // animate={{opacity: 1, scale: 1}}
       animate={controls}
       // transition={{duration:0.3}}
