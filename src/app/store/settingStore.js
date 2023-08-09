@@ -194,19 +194,13 @@ export const settings = createSlice({
       })
       state.currentLayers.push(true)
     },
-    updateCurrWindowPosition:(state, action) => {
-      state.currentWindows[action.payload.idx].windowPosition = action.payload.data
-      // // console.log(action.payload.data)
-      // Update Cache
-      window.localStorage.setItem(state.cacheName, zip(JSON.stringify(state)))
-    },
     updateWindowData: (state, action) => {
       state.currentWindows[action.payload.idx].data = action.payload.data
       // Update Cache
       window.localStorage.setItem(state.cacheName, zip(JSON.stringify(state)))
     },
     updateAnyWindowDataTypeAndCache: (state, action)=> {
-      console.log(action.payload.idx, action.payload.dataType)
+      console.log(action.payload.idx, action.payload.dataType,action.payload.data)
       state.currentWindows[action.payload.idx][action.payload.dataType] = action.payload.data
       // Update Cache
       window.localStorage.setItem(state.cacheName, zip(JSON.stringify(state)))
@@ -290,7 +284,6 @@ export const {
   , updateWindowData
   , updateWindowTitle
   , initalizeData
-  , updateCurrWindowPosition
   , updateAnyWindowDataTypeAndCache
   , updateAnyWindowDataType
   , organizeCards

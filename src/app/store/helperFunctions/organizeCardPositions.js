@@ -2,43 +2,35 @@ const wallPadding = 5
 const pxStep = 10
 
 export function organizeCardPositions(currData) {
+  // currData = sortArrayOfObjectsByXY(currData)
   // Something in the Future
+  let maxRows = Math.ceil(Math.sqrt(currData.length))
+  let maxCols = Math.ceil(Math.sqrt(currData.length))
+  const pxRowSpace = parseInt((window.innerHeight * 0.7) / maxRows)
+  let currPxRowSpace = pxRowSpace
+  let pxColSpace = parseInt((window.innerHeight * 0.8) / maxCols)
+  for(let i=0;i<currData.length;i++) {
+    currData[i].windowAnimation = {
+      x: parseInt(window.innerWidth * 0.3) + pxColSpace*(i%maxRows) - (window.innerWidth /2),
+      y: parseInt(window.innerHeight*-0.1) + currPxRowSpace - (window.innerHeight /2),
+      duration:1
+    }
+    if(i%maxRows === maxRows - 1) {
+      currPxRowSpace = currPxRowSpace + pxRowSpace
+    }
+  }
 
   return currData
 }
 
+function sortArrayOfObjectsByXY(jsonArray) {
+  jsonArray.sort((a, b) => {
+    if (a.windowPosition.x !== b.windowPosition.x) {
+      return a.windowPosition.x - b.windowPosition.x; // Sort by x key
+    } else {
+      return a.windowPosition.x - b.windowPosition.y; // If x keys are equal, sort by y key
+    }
+  });
 
-function onWall(x,y,w,h) {
-  if(x < 0) {
-    x = x * -1
-  }
-  if(y < 0) {
-    y = y * -1
-  }
-  if(((window.innerWidth-wallPadding)/2 >= (x + (w/2))) || ((window.innerHeight-wallPadding)/2 >= (y + (h/2)))) {
-    return true
-  }
-  return false
-}
-
-// Function to check if rectangle overlap
-function areBoxesOverlapping(x1, y1, x2, y2, w1, h1, w2, h2) {
-  // Calculate box1 coordinates
-  const x1Start = x1 - w1 / 2;
-  const x1End = x1 + w1 / 2;
-  const y1Start = y1 - h1 / 2;
-  const y1End = y1 + h1 / 2;
-
-  // Calculate box2 coordinates
-  const x2Start = x2 - w2 / 2;
-  const x2End = x2 + w2 / 2;
-  const y2Start = y2 - h2 / 2;
-  const y2End = y2 + h2 / 2;
-
-  // Check for overlap in both X and Y directions
-  const xOverlap = x1End > x2Start && x1Start < x2End;
-  const yOverlap = y1End > y2Start && y1Start < y2End;
-
-  // Return true if there is overlap in both X and Y directions
-  return xOverlap && yOverlap;
+  return jsonArray;
 }
