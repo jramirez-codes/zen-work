@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField, Slider, ToggleButtonGroup, ToggleButton, Button } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux'
-import { setDisplayUrl, updateYoutubeUrl, updateOpacity, updateBackgroundType, organizeCards, deleteState } from '../../store/settingStore'
+import { setDisplayUrl, updateYoutubeUrl, updateOpacity, updateBackgroundType, organizeCards, deleteState, groupCardsCenter } from '../../store/settingStore'
 export default function Settings() {
   const currURL = useSelector((state)=>state.settings.displayUrl)
   const currOpacity = useSelector((state)=>state.settings.backgroundOpacity)
@@ -41,8 +41,10 @@ export default function Settings() {
         <ToggleButton value="gradient">Gradient</ToggleButton>
         <ToggleButton value="video">Youtube Video</ToggleButton>
       </ToggleButtonGroup>
-      {/* <h3 style={{marginBottom:5, marginTop:5}}>Organize Cards</h3> */}
-      {/* <Button variant="outlined" fullWidth onClick={()=>{dispatch(organizeCards())}}>Organize</Button> */}
+      <h3 style={{marginBottom:5, marginTop:5}}>Organize Cards</h3>
+      <Button variant="outlined" fullWidth onClick={()=>{dispatch(organizeCards())}}>Organize</Button>
+      <h3 style={{marginBottom:5, marginTop:5}}>Group Cards</h3>
+      <Button variant="outlined" fullWidth onClick={()=>{dispatch(groupCardsCenter())}}>Group Center</Button>
       {currProject !== 'my-zen-work-home'? (
         <>
           <h3 style={{marginBottom:5, marginTop:5}}>Delete Project</h3>

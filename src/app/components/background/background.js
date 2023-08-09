@@ -79,8 +79,8 @@ export default function Background(props) {
   <div>
     {props.backgroundType === 'video'? (
       <iframe 
-        width='100vw'
-        height='100vh'
+        width='100%'
+        height='100%'
         src={props.currURL+'?enablejsapi=1&autoplay=1&rel=0'}
         // src={`https://www.youtube.com/embed/${currURL}`}
         title="YouTube video player"

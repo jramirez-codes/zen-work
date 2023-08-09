@@ -14,24 +14,6 @@ export default function CustomCardOrchestrator({obj, idx, currStyle, currLayers,
   const controls = useAnimationControls()
   const [currSize, setCurrSize] = React.useState({h:0,w:0})
   const sizeRef = React.useRef();
-
-  // Inital Animation
-  React.useEffect(()=>{
-    async function initalAnimation() {
-      await controls.start({
-        opacity: 0,
-        scale: 0.2,
-        transition: {duration: 0}
-      })
-      await controls.start({
-        opacity: 1,
-        scale: 1,
-        transition: {duration: 0.3}
-      })
-      await controls.start("hidden")
-    }
-    initalAnimation()
-  },[])
   
   // Que Animation
   React.useEffect(()=>{
@@ -40,7 +22,7 @@ export default function CustomCardOrchestrator({obj, idx, currStyle, currLayers,
       await controls.start("hidden")
     }
     queAnimation()
-    dispatch(updateAnyWindowDataType({idx:idx, data: "hidden", dataType:'windowAnimation'}))
+    // dispatch(updateAnyWindowDataType({idx:idx, data: "hidden", dataType:'windowAnimation'}))
   },[currAnimation])
 
   // Track Size
@@ -65,9 +47,12 @@ export default function CustomCardOrchestrator({obj, idx, currStyle, currLayers,
       <motion.div 
         ref={sizeRef} 
         drag
-        dragConstraints={{left:'50vw', right:'50vw', top:'50vh', bottom:'50vh'}}
         style={{minWidth:100, minHeight:100, zIndex:currLayers[idx]?3:2, position:'absolute'}}
-        initial={{opacity: 1, scale: 1, x: obj.windowPosition.x-(window.innerWidth/2), y: obj.windowPosition.y-(window.innerHeight/2)}}
+        animate={controls}
+        initial={{opacity: 1, scale: 1, 
+          x: obj.windowPosition.x-(window.innerWidth/2), 
+          y: obj.windowPosition.y-(window.innerHeight/2),
+        }}
         whileDrag={{ scale: 1.05 }}
         onDragEnd={(_, info) => {dispatch(updateAnyWindowDataTypeAndCache({idx: idx, data: info.point, dataType: 'windowPosition'}))}}
         key={idx}

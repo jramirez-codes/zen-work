@@ -2,6 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { zip, unzip } from './helperFunctions/zip'
 import { organizeCardPositions } from './helperFunctions/organizeCardPositions'
+import { groupCenter } from './helperFunctions/groupCardsCenter'
 // WINDOW DATA TYPE
 // Ex. {windowType: STRING, title: STRING, data: ANY}
 const cacheHome = 'my-zen-work-home'
@@ -46,7 +47,7 @@ export const settings = createSlice({
     // State Swapping
     deleteState: (state, action) => {
       // Delete and Update State
-      let toDelete = window.confirm("Are you sure you want to delete "+action.payload);
+      let toDelete = window.confirm("Are you sure you want to delete this project");
       if (toDelete) {
         createCleanState(state, {payload:'home'})
         localStorage.removeItem(state.cacheName = cachePrefix + action.payload);
@@ -239,25 +240,19 @@ export const settings = createSlice({
       // Update Cache
       window.localStorage.setItem(state.cacheName, zip(JSON.stringify(state)))
     },
+    // Card Animations
     organizeCards: (state) => {
-      // Get Data Postion Using Cache
-      let currData = window.localStorage.getItem(state.cacheName)
-      if(currData === null) {
-        return
-      }
-      currData = JSON.parse(unzip(currData)).currentWindows
-      
       // Organize Card Animation Position
-      currData = organizeCardPositions(currData)
-      // console.log(currData)
-      // Update States
-      for(let i=0; i < currData.length-1; i++) {
-        state.currentWindows[i].windowAnimation = {
-          x:currData[i].windowPosition.x - window.innerWidth/2,
-          y:currData[i].windowPosition.y - window.innerHeight /2,
-          transition: {duration: 1}
-        }
-      }
+      state.currentWindows = organizeCardPositions(state.currentWindows)
+
+      // Update Cache
+      window.localStorage.setItem(state.cacheName, zip(JSON.stringify(state)))
+    },
+    groupCardsCenter: (state) => {
+      state.currentWindows = groupCenter(state.currentWindows)
+
+      // Update Cache
+      window.localStorage.setItem(state.cacheName, zip(JSON.stringify(state)))
     },
     // UI Settings
     updateOpacity: (state, action) => {
@@ -282,6 +277,7 @@ export const settings = createSlice({
     },
   }
 })
+
 export const { 
   setDisplayUrl
   , updateYoutubeUrl
@@ -301,6 +297,7 @@ export const {
   , addState
   , swapState
   , deleteState
+  , groupCardsCenter
 } = settings.actions
 
 export default settings.reducer

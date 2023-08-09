@@ -2,37 +2,7 @@ const wallPadding = 5
 const pxStep = 10
 
 export function organizeCardPositions(currData) {
-  let done = false
-  while(!done) {
-    done = true
-    // console.log('Cycle')
-    for(let i=0; i < currData.length-1; i++) {
-      for(let j=i+1; j<currData.length; j++) {
-        if(currData[i].windowType !== 'delete' && currData[j].windowType !== 'delete') {
-          // Check for overlap
-          if(areBoxesOverlapping(currData[i].windowPosition.x,currData[i].windowPosition.y,currData[i].windowSize.w,currData[i].windowSize.h,
-            currData[j].windowPosition.x,currData[j].windowPosition.y,currData[j].windowSize.w,currData[j].windowSize.h)) {
-            // console.log(currData[i].windowType, "touching", currData[j].windowType)
-  
-            // Object J Not Touching wall?
-            if(!onWall(currData[j].windowPosition.x,currData[j].windowPosition.y,currData[j].windowSize.w,currData[j].windowSize.h)) {
-              currData[j].windowPosition.x += currData[j].windowPosition.x > currData[i].windowPosition.x ? pxStep:-pxStep
-              currData[j].windowPosition.y += currData[j].windowPosition.y > currData[i].windowPosition.y ? pxStep:-pxStep
-            }
-  
-            // Object I Not Touching Wall
-            if(!onWall(currData[i].windowPosition.x,currData[i].windowPosition.y,currData[i].windowSize.w,currData[i].windowSize.h)) {
-              currData[i].windowPosition.x += currData[i].windowPosition.x > currData[j].windowPosition.x ? pxStep:-pxStep
-              currData[i].windowPosition.y += currData[i].windowPosition.y > currData[j].windowPosition.y ? pxStep:-pxStep
-            }
-
-            return currData
-            done = false
-          }
-        }
-      }
-    }
-  }
+  // Something in the Future
 
   return currData
 }
