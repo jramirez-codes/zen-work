@@ -14,7 +14,6 @@ export default function TimeKeeperV3(props) {
   function onTimerReset() {
     setIsRunning(false)
     setCurrAlarm(0)
-    console.log("timer ended")
   }
 
   function onTimerUpdate() {
@@ -27,7 +26,7 @@ export default function TimeKeeperV3(props) {
       hour = Math.floor(dt / 3600);
       min = Math.floor((dt % 3600) / 60);
       sec = dt % 60;
-      console.log(`${hour<=9?'0'+hour:hour}:${min<=9?'0'+min:min}:${sec<=9?'0'+sec:sec}`)
+      // console.log(`${hour<=9?'0'+hour:hour}:${min<=9?'0'+min:min}:${sec<=9?'0'+sec:sec}`)
     
       // Update Visual Timer
       setActiveTimerDisplay(`${hour<=9?'0'+hour:hour}:${min<=9?'0'+min:min}:${sec<=9?'0'+sec:sec}`)
@@ -62,7 +61,7 @@ export default function TimeKeeperV3(props) {
     // Start Alarm
     setCurrAlarm(newAlarm)
     setIsRunning(true)
-    console.log('timer stasrted', newAlarm)
+    // console.log('timer stasrted', newAlarm)
   }
 
   // Check to see if alarm is already saved

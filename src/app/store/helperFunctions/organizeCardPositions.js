@@ -2,7 +2,7 @@ const wallPadding = 5
 const pxStep = 10
 
 export function organizeCardPositions(currData) {
-  // currData = sortArrayOfObjectsByXY(currData)
+  currData = currData.filter((e)=>e.windowType !== 'delete')
   // Something in the Future
   let maxRows = Math.ceil(Math.sqrt(currData.length))
   let maxCols = Math.ceil(Math.sqrt(currData.length))
