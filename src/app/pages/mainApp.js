@@ -16,7 +16,6 @@ export default function MainApp() {
   const currLayers = useSelector(state=>state.settings.currentLayers)
   const currBackgroundType = useSelector(state=>state.settings.backgroundType)
   const [toggleButton, setToggleButton] = useState(true)
-
   // Inital Window Data
   useEffect(()=>{
     dispatch(initalizeData())

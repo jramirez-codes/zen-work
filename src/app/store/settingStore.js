@@ -134,13 +134,10 @@ export const settings = createSlice({
     },
     // Inital Window Load
     initalizeData:(state) => {
-      if(window === undefined) {
-        return 
-      }
-
       // Get Config
       let configData = window.localStorage.getItem(cacheConfig)
       let currProject
+      // Already have data
       if(configData !== null && configData !== "") {
         configData = JSON.parse(unzip(configData))
         state.projects = configData.projects
@@ -152,16 +149,18 @@ export const settings = createSlice({
         if(currData !== null && currData !== "") {
           currData = JSON.parse(unzip(currData))
           let keys = Object.keys(currData);
+          // Clean WindowType
+          currData.currentWindows = currData.currentWindows.filter(item => item.windowType !== "delete");
           // Update States
           for(let i=0;i<keys.length;i++) {
             if(keys[i] !== 'projects' && keys[i] !== 'cacheName') {
               state[keys[i]] = currData[keys[i]]
             }
           }
-          // console.log(currData)
         }
         state.cacheName = cacheName
       }
+      // Data Initalization
       else {
         window.localStorage.setItem(cacheConfig, zip(JSON.stringify({
           currProject: "home",
@@ -230,7 +229,9 @@ export const settings = createSlice({
         state.currentWindows[action.payload].data = []
         state.currentWindows[action.payload].windowPosition = {x:0,  y:0}
         state.currentWindows[action.payload].windowSize = {h:0,w:0}
+        state.currentWindows[action.payload].windowAnimation = "hidden"
       }
+
       // Update Cache
       window.localStorage.setItem(state.cacheName, zip(JSON.stringify(state)))
     },

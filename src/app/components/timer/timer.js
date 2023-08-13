@@ -1,8 +1,9 @@
 import React from "react";
-import TimeKeeper from "./timeKeeper";
-
+// import TimeKeeper from "./timeKeeper/timeKeeper.js";
+import TimeKeeperV2 from "./timeKeeper/timeKeeper-v2";
+import TimeKeeperV3 from "./timeKeeper/timeKeeper-v3";
 export default function Timer(props) {
   return(
-    <TimeKeeper expiryTimestamp={new Date()}/>
+    <TimeKeeperV3 {...props}/>
   )
 }

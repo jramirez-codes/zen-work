@@ -24,7 +24,6 @@ export default function Weather(props) {
   // Get Weather Data
   function getWeatherData() {
     navigator.geolocation.getCurrentPosition(async function(position) {
-      // // console.log(position.coords)
       async function getData() {
         return await getWeather(position.coords)
       }
@@ -32,7 +31,6 @@ export default function Weather(props) {
       setWeatherData(data)
       let date = new Date(data.current_weather.time)
       setCurrTime(date.toLocaleString())
-      // console.log(data)
     });
 
   }
