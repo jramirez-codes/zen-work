@@ -2,12 +2,13 @@ import React from 'react';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 
 export default function TimeKeeperV3(props) {
   const [currAlarm, setCurrAlarm] = React.useState(0)
   const [isRunning, setIsRunning] = React.useState(false)
   const [alarmDisplay, setAlarmDisplay] = React.useState(null)
+  const alarmSound = new Audio('./staticAssets/sounds/alarm_beep.wav')
   
   function onTimerReset() {
     setIsRunning(false)
@@ -19,10 +20,19 @@ export default function TimeKeeperV3(props) {
     const currTime = Date.now()
     // Loop Timer Recursivly
     if(currTime < currAlarm) {
-      console.log(currTime)
+      // Update Remaining Time
+      let dt = Math.abs(Math.floor((currAlarm - currTime)/1000));
+      let min, sec, hour
+      hour = Math.floor(dt / 3600);
+      min = Math.floor((dt % 3600) / 60);
+      sec = dt % 60;
+      console.log(`${hour<=9?'0'+hour:hour}:${min<=9?'0'+min:min}:${sec<=9?'0'+sec:sec}`)
     }
     // Reset Timer State
     else {
+      // Play Timer Sounds
+      alarmSound.play()
+
       onTimerReset()
     }
   }
@@ -80,10 +90,18 @@ export default function TimeKeeperV3(props) {
           value={alarmDisplay}
           onChange={(e)=>{setAlarmDisplay(e)}}
           slotProps={{ textField: { fullWidth: true } }}
+          disabled={isRunning}
         />
       </LocalizationProvider>
-      <Button onClick={onTimerStart}>Start</Button>
-      <Button onClick={onTimerReset}>Reset</Button>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="flex-start"
+        spacing={0}
+      >
+        <Button onClick={onTimerStart}>Start</Button>
+        <Button onClick={onTimerReset}>Reset</Button>
+      </Stack>
     </>
   )
 }
