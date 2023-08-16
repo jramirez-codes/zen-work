@@ -1,8 +1,8 @@
 import React from "react";
 import {useDispatch } from "react-redux";
 import { motion, useAnimationControls } from 'framer-motion'
-import { onWindowHoverEnter, onWindowHoverExit, updateAnyWindowDataTypeAndCache, updateAnyWindowDataType } from "../../store/settingStore";
-import TimeKeeper from "../timer/timer";
+import { onWindowHoverEnter, onWindowHoverExit, updateAnyWindowDataTypeAndCache } from "../../store/settingStore";
+import TimerMain from "../timer/timer";
 import Notepad from "../notepad/notepad";
 import Tasklist from "../tasklist/tasklist";
 import Weather from "../weather/weather";
@@ -61,7 +61,7 @@ export default function CustomCardOrchestrator({obj, idx, currStyle, currLayers,
       >
         {obj.windowType === 'timer'? (
           <CustomCard key={idx} windowIdx={idx} title={obj.title} currStyle={currStyle}>
-            <TimeKeeper key={idx} expiryTimestamp={new Date()} data={obj.data}/>
+            <TimerMain key={idx} expiryTimestamp={new Date()} data={obj.data} windowIdx={idx}/>
           </CustomCard>
         ):null}
         {obj.windowType === 'notepad'? (

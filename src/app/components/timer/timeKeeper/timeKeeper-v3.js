@@ -3,8 +3,11 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Button, Stack } from '@mui/material';
+import { updateAnyWindowDataTypeAndCache } from '../../../store/settingStore';
+import { useDispatch } from 'react-redux';
 
 export default function TimeKeeperV3(props) {
+  const dispatch = useDispatch()
   const [currAlarm, setCurrAlarm] = React.useState(0)
   const [isRunning, setIsRunning] = React.useState(false)
   const [inputTimerDisplay, setInputTimerDisplay] = React.useState(null)
@@ -18,7 +21,6 @@ export default function TimeKeeperV3(props) {
 
   function onTimerUpdate() {
     const currTime = Date.now()
-    // Loop Timer Recursivly
     if(currTime < currAlarm) {
       // Update Remaining Time
       let dt = Math.abs(Math.floor((currAlarm - currTime)/1000));
@@ -26,7 +28,6 @@ export default function TimeKeeperV3(props) {
       hour = Math.floor(dt / 3600);
       min = Math.floor((dt % 3600) / 60);
       sec = dt % 60;
-      // console.log(`${hour<=9?'0'+hour:hour}:${min<=9?'0'+min:min}:${sec<=9?'0'+sec:sec}`)
     
       // Update Visual Timer
       setActiveTimerDisplay(`${hour<=9?'0'+hour:hour}:${min<=9?'0'+min:min}:${sec<=9?'0'+sec:sec}`)
@@ -49,6 +50,7 @@ export default function TimeKeeperV3(props) {
     if(inputTimerDisplay.$H === 0 && inputTimerDisplay.$m === 0 && inputTimerDisplay.$s === 0)
       return
 
+    
     // Projected Alarm Date
     const currTime = Date.now()
     let newAlarm = currTime 
@@ -56,19 +58,25 @@ export default function TimeKeeperV3(props) {
     + (inputTimerDisplay.$m === NaN ? 0: inputTimerDisplay.$m * 60000)
     + (inputTimerDisplay.$s === NaN ? 0: inputTimerDisplay.$s * 1000)
     
-    // Update Backend
-
     // Start Alarm
     setCurrAlarm(newAlarm)
     setIsRunning(true)
-    // console.log('timer stasrted', newAlarm)
+    
+    // Update Backend
+    dispatch(updateAnyWindowDataTypeAndCache({idx: props.windowIdx, dataType: 'data', data: [newAlarm]}))
+    console.log("triggered and cached")
   }
 
   // Check to see if alarm is already saved
   React.useEffect(()=>{
     if(props.data !== undefined && props.data.length !== 0) {
-      setCurrAlarm(props.data)
+      
+      setCurrAlarm(props.data[0])
       setIsRunning(true)
+      console.log('Worked')
+    }
+    else {
+      console.log('didnt work', props.data)
     }
   },[])
   
@@ -89,7 +97,7 @@ export default function TimeKeeperV3(props) {
       ): null}
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <TimePicker 
-          views={['hour','minutes', 'seconds']} 
+          views={['hours','minutes', 'seconds']} 
           format="H:m:s"
           label="Set Alarm"
           value={inputTimerDisplay}
