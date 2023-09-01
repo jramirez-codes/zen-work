@@ -18,7 +18,6 @@ export default function TimeKeeperV3(props) {
     if(!isRunning)
       return
 
-    console.log("TIMER RESETR")
     setIsRunning(false)
     setCurrAlarm(0)
     dispatch(updateAnyWindowDataTypeAndCache({idx: props.windowIdx, dataType: 'data', data: [0]}))
@@ -51,22 +50,21 @@ export default function TimeKeeperV3(props) {
       return
 
     // Parse Inputs
-    if(inputTimerDisplay === null || inputTimerDisplay === 'H:m:s') 
+    if(isNaN(inputTimerDisplay) || inputTimerDisplay === 'H:m:s') 
       return
 
-    if(inputTimerDisplay.$H === NaN || inputTimerDisplay.$m === NaN || inputTimerDisplay.$s === NaN) 
+    if(isNaN(inputTimerDisplay.$H) || isNaN(inputTimerDisplay.$m) || isNaN(inputTimerDisplay.$s)) 
       return
 
     if(inputTimerDisplay.$H === 0 && inputTimerDisplay.$m === 0 && inputTimerDisplay.$s === 0)
       return
 
-    
     // Projected Alarm Date
-    const currTime = Date.now()
+    const currTime = new Date().getTime()
     let newAlarm = currTime 
-    + (inputTimerDisplay.$H === NaN ? 0: inputTimerDisplay.$H * 3600000) 
-    + (inputTimerDisplay.$m === NaN ? 0: inputTimerDisplay.$m * 60000)
-    + (inputTimerDisplay.$s === NaN ? 0: inputTimerDisplay.$s * 1000)
+    + (isNaN(inputTimerDisplay.$H) ? 0: inputTimerDisplay.$H * 3600000) 
+    + (isNaN(inputTimerDisplay.$m) ? 0: inputTimerDisplay.$m * 60000)
+    + (isNaN(inputTimerDisplay.$s) ? 0: inputTimerDisplay.$s * 1000)
     
     // Start Alarm
     setCurrAlarm(newAlarm)
@@ -79,7 +77,7 @@ export default function TimeKeeperV3(props) {
   // Check to see if alarm is already saved
   React.useEffect(()=>{
     if(props.data !== undefined && props.data.length !== 0) {
-      if(props.data[0] > new Date().getTime()) {
+      if(props.data[0] > new Date().getTime() && !isNaN(props.data[0]) && props.data[0] !== 0) {
         setCurrAlarm(props.data[0])
         setIsRunning(true)
       }
