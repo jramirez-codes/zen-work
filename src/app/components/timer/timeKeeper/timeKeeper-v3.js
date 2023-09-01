@@ -15,8 +15,13 @@ export default function TimeKeeperV3(props) {
   const alarmSound = new Audio('./staticAssets/sounds/alarm_beep.wav')
   
   function onTimerReset() {
+    if(!isRunning)
+      return
+
+    console.log("TIMER RESETR")
     setIsRunning(false)
     setCurrAlarm(0)
+    dispatch(updateAnyWindowDataTypeAndCache({idx: props.windowIdx, dataType: 'data', data: [0]}))
   }
 
   function onTimerUpdate() {
@@ -41,6 +46,11 @@ export default function TimeKeeperV3(props) {
   }
 
   function onTimerStart() {
+    // Check if already running
+    if(isRunning)
+      return
+
+    // Parse Inputs
     if(inputTimerDisplay === null || inputTimerDisplay === 'H:m:s') 
       return
 
@@ -64,20 +74,16 @@ export default function TimeKeeperV3(props) {
     
     // Update Backend
     dispatch(updateAnyWindowDataTypeAndCache({idx: props.windowIdx, dataType: 'data', data: [newAlarm]}))
-    console.log("triggered and cached")
   }
 
   // Check to see if alarm is already saved
   React.useEffect(()=>{
     if(props.data !== undefined && props.data.length !== 0) {
-      
-      setCurrAlarm(props.data[0])
-      setIsRunning(true)
-      console.log('Worked')
-    }
-    else {
-      console.log('didnt work', props.data)
-    }
+      if(props.data[0] > new Date().getTime()) {
+        setCurrAlarm(props.data[0])
+        setIsRunning(true)
+      }
+    } 
   },[])
   
   // Periodicly Update timer
@@ -112,8 +118,8 @@ export default function TimeKeeperV3(props) {
         alignItems="flex-start"
         spacing={0}
       >
-        <Button onClick={onTimerStart}>Start</Button>
-        <Button onClick={onTimerReset}>Reset</Button>
+        <Button onClick={()=>{onTimerStart()}}>Start</Button>
+        <Button onClick={()=>{onTimerReset()}}>Reset</Button>
       </Stack>
     </>
   )

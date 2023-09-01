@@ -168,13 +168,6 @@ export const settings = createSlice({
         })))
       }
     },
-    // Youtube URL
-    setDisplayUrl: (state, action)=>{
-      state.displayUrl = action.payload
-    },
-    updateYoutubeUrl: (state) => {
-      state.youtubeUrl = state.displayUrl
-    },
     // Window Manipulation
     onWindowHoverEnter: (state, action) => {
       state.currentLayers[action.payload] = true
@@ -269,6 +262,13 @@ export const settings = createSlice({
       state.backgroundType = action.payload
       // Update Cache
       window.localStorage.setItem(state.cacheName, zip(JSON.stringify(state)))
+    },
+    // Youtube URL
+    setDisplayUrl: (state, action)=>{
+      state.displayUrl = action.payload
+    },
+    updateYoutubeUrl: (state) => {
+      state.youtubeUrl = state.displayUrl
     },
   }
 })
