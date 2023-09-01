@@ -9,17 +9,21 @@ export default function Notepad(props) {
 
   React.useEffect(()=>{
     if(props.data !== null) {
+      console.log(props.data)
       setNotes(props.data[0]===null? "": props.data[0])
     }
   },[props.data])
 
   return(
-    <TextField
-      fullWidth
-      multiline
-      maxRows={4}
-      onChange={(e)=>{setNotes(e.target.value)}}
-      onBlur={()=>{dispatch(updateWindowData({idx: props.windowIdx, data: [notes]}))}}
-    />
+    <div >
+      <TextField
+        fullWidth
+        multiline
+        maxRows={4}
+        onChange={(e)=>{setNotes(e.target.value)}}
+        onBlur={()=>{dispatch(updateWindowData({idx: props.windowIdx, data: [notes]}))}}
+        value={notes}
+      />
+    </div>
   )
 }
