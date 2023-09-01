@@ -56,7 +56,7 @@ export default function Controls() {
         <>
           <h2 style={{textAlign:'center'}}>Settings</h2>
           <TextField 
-            label="Youtube URL" 
+            label="Youtube URL"
             value={currURL} 
             onChange={(e)=>{dispatch(setDisplayUrl(e.target.value))}} 
             onBlur={()=>{dispatch(updateYoutubeUrl())}}

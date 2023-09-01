@@ -3,6 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import { zip, unzip } from './helperFunctions/zip'
 import { organizeCardPositions } from './helperFunctions/organizeCardPositions'
 import { groupCenter } from './helperFunctions/groupCardsCenter'
+import { configureYoutubeId } from './helperFunctions/configureYoutubeId'
+
 // WINDOW DATA TYPE
 // Ex. {windowType: STRING, title: STRING, data: ANY}
 const cacheHome = 'my-zen-work-home'
@@ -30,6 +32,7 @@ export const settings = createSlice({
     // Window Controls
     currentWindows: [],
     currentLayers: [],
+
     // Card Settings
     displayUrl: "https://www.youtube.com/embed/vemLEwjIxow",
     youtubeUrl: "https://www.youtube.com/embed/vemLEwjIxow",
@@ -268,7 +271,8 @@ export const settings = createSlice({
       state.displayUrl = action.payload
     },
     updateYoutubeUrl: (state) => {
-      state.youtubeUrl = state.displayUrl
+      // Configure Youtube Video Id
+      state.youtubeUrl = configureYoutubeId(state.displayUrl)
     },
   }
 })

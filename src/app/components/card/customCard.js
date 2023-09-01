@@ -1,17 +1,14 @@
 import React from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { deleteWindow } from '../../store/settingStore'
 import { Grid, Input } from '@mui/material';
 import { updateWindowTitle } from '../../store/settingStore';
 export default function CustomCard(props) {
   const dispatch = useDispatch()
-  // const [currHeader, setCurrHeader] = React.useState(props.title)
-  const currStyle = useSelector((state)=>state.settings.styleSettings)
-  // {idx: props.windowIdx, data: e.target.value} 
 
   return(
-    <div className='paper' style={currStyle}>
+    <div className='paper' style={props.currStyle}>
       <Grid
         container
         direction="row"

@@ -9,7 +9,6 @@ export default function Notepad(props) {
 
   React.useEffect(()=>{
     if(props.data !== null) {
-      console.log(props.data)
       setNotes(props.data[0]===null? "": props.data[0])
     }
   },[props.data])
