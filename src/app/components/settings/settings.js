@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, Slider, ToggleButtonGroup, ToggleButton, Button, Grid } from "@mui/material";
+import { TextField, Slider, ToggleButtonGroup, ToggleButton, Button, Grid, Tooltip } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux'
 import { setDisplayUrl, updateYoutubeUrl, updateOpacity, updateBackgroundType, organizeCards, deleteState, groupCardsCenter } from '../../store/settingStore'
 import OpenWithIcon from '@mui/icons-material/OpenWith';
@@ -12,66 +12,65 @@ export default function Settings() {
   const dispatch = useDispatch()
   const currProject = useSelector(e=>e.settings.cacheName)
   return(
-    <div>
-      {/* BACKGROUND SETTINGS */}
-      {currBackgroundType === 'video'? (
-          <>
-            <h3 style={{marginBottom:7, marginTop:0}}>Background Video</h3>
-            <TextField 
+    <Grid container spacing={1} sx={{width:400}}>
+      {/* BACKGROUND TYPE */}
+      <Grid item xs={12} sm={12} md={12} lg={12}>
+        <p style={{margin:0}}>Card Opacity</p>
+        <Slider
+          max={1}
+          min={0}
+          value={currOpacity}
+          step={.01}
+          fullWidth
+          valueLabelDisplay="auto"
+          onChange={(e)=>{dispatch(updateOpacity(e.target.value))}}
+        />
+      </Grid>
+      <Grid item xs={12} sm={12} md={12} lg={12}>
+        {/* BACKGROUND SETTINGS */}
+        {currBackgroundType === 'video'? (
+          <TextField 
             label="Youtube URL" 
             value={currURL} 
             onChange={(e)=>{dispatch(setDisplayUrl(e.target.value))}} 
             onBlur={()=>{dispatch(updateYoutubeUrl())}}
             fullWidth
-            />
-          </>
-        ):(
-          <>
-            <h3 style={{marginBottom:0, marginTop:0}}>Background Opacity</h3>
-            <Slider
-              max={1}
-              min={0}
-              value={currOpacity}
-              step={.01}
-              fullWidth
-              valueLabelDisplay="auto"
-              onChange={(e)=>{dispatch(updateOpacity(e.target.value))}}
-            />
-          </>
-      )}
-
-      {/* BACKGROUND TYPE */}
-      <h3 style={{marginBottom:5, marginTop:0}}>Background Type</h3>
-      <ToggleButtonGroup
-        color="primary"
-        varient="outlined"
-        value={currBackgroundType}
-        exclusive
-        onChange={(_, v)=>{dispatch(updateBackgroundType(v))}} 
-        fullWidth
-      >
-        <ToggleButton value="gradient">Gradient</ToggleButton>
-        <ToggleButton value="video">Youtube Video</ToggleButton>
-      </ToggleButtonGroup>
-
-      {/* CARD ORGINIZATION */}
-      <h3 style={{marginBottom:5, marginTop:5}}>Organize Cards</h3>
-      <Grid container spacing={1}>
-        <Grid item xs={6} sm={6} md={6} lg={6}>
-          <Button variant="outlined" fullWidth onClick={()=>{dispatch(organizeCards())}} startIcon={<OpenWithIcon/>}>Organize</Button>
-        </Grid>
-        <Grid item xs={6} sm={6} md={6} lg={6}>
-          <Button variant="outlined" fullWidth onClick={()=>{dispatch(groupCardsCenter())}} startIcon={<CloseFullscreenIcon/>}>Center</Button>
-        </Grid>
+          />
+        ):null}
       </Grid>
-
+      {/* BACKGROUND TYPE */}
+      <Grid item xs={12} sm={12} md={12} lg={12}>
+        <Tooltip title="Background Type" placement="top">
+          <ToggleButtonGroup
+            color="primary"
+            varient="outlined"
+            value={currBackgroundType}
+            exclusive
+            onChange={(_, v)=>{dispatch(updateBackgroundType(v))}} 
+            fullWidth
+          >
+            <ToggleButton value="gradient">Gradient</ToggleButton>
+            <ToggleButton value="video">Youtube Video</ToggleButton>
+          </ToggleButtonGroup>
+        </Tooltip>
+      </Grid>
+      {/* CARD ORGINIZATION */}
+      <Grid item xs={6} sm={6} md={6} lg={6}>
+        <Tooltip title="Organize Cards" placement="left">
+          <Button variant="outlined" fullWidth onClick={()=>{dispatch(organizeCards())}} startIcon={<OpenWithIcon/>}>Organize</Button>
+        </Tooltip>
+      </Grid>
+      <Grid item xs={6} sm={6} md={6} lg={6}>
+        <Tooltip title="Center Cards" placement="right">
+          <Button variant="outlined" fullWidth onClick={()=>{dispatch(groupCardsCenter())}} startIcon={<CloseFullscreenIcon/>}>Center</Button>
+        </Tooltip>
+      </Grid>
       {/* DELETING PROJECT */}
       {currProject !== 'my-zen-work-home'? (
-        <>
-          <h3 style={{marginBottom:5, marginTop:5}}>Delete Project</h3>
-          <Button variant="outlined" color={'error'} fullWidth onClick={()=>{dispatch(deleteState())}}>Delete</Button>
-        </>
+        <Grid item xs={12} sm={12} md={12} lg={12}>
+          <Button variant="outlined" color={'error'} fullWidth onClick={()=>{dispatch(deleteState())}}>Delete Project</Button>
+        </Grid>
       ):null}
-    </div>
+    </Grid>
   )
 }
