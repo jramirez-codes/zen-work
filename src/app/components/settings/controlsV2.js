@@ -33,7 +33,6 @@ export default function ControlsV2(props) {
     { icon: <AddTaskIcon onClick={()=>{dispatch(addWindow("tasklist"))}}/>, name: 'Tasklist' },
     { icon: <NoteAddIcon onClick={()=>{dispatch(addWindow("notepad"))}}/>, name: 'Notepad' },
     { icon: <SettingsIcon onClick={()=>{dispatch(addWindow("settings"))}}/>, name: 'Settings' },
-    // { icon: <ProjectSwap/>, name: 'Projects' },
   ];
 
   return (

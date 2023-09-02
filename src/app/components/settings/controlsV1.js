@@ -12,7 +12,6 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd';
 export default function Controls() {
   const currURL = useSelector((state)=>state.settings.displayUrl)
   const currOpacity = useSelector((state)=>state.settings.backgroundOpacity)
-  // const currStyle = useSelector((state)=>state.settings.styleSettings)
   const [isHidden, setHidden] = useState(true)
   const dispatch = useDispatch()
   

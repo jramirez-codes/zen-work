@@ -58,7 +58,6 @@ export default function Tasklist(props) {
           onBlur={()=>{addTask()}}
           onKeyDownCapture={(e)=>{handleKeyPress(e.key)}}
           fullWidth
-          multiline
         />
       </Stack>
     </div>
