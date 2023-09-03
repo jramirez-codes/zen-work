@@ -89,19 +89,27 @@ export const settings = createSlice({
       }
     },
     addState: (state, action) => {
-      // Stupid things for project name
+      // Ask user for project name
       let projectName = window.prompt("Enter Project Name");
-      if(projectName === '') {
+
+      // Check Name
+      if(projectName === '' || projectName === null) {
+        alert('Invalide Project Name')
         return
       }
-      action.payload = projectName
-      
+      // Check if user already has project
+      else if(window.localStorage.getItem(cachePrefix + projectName) !== null || projectName.toLowerCase() === 'home') {
+        alert('Project Already Exists')
+        return
+      }
+
       // Push new State
-      state.projects.push(action.payload)
+      action.payload = projectName
+      state.projects.push(projectName)
       
       // Saving Config
       window.localStorage.setItem(cacheConfig, zip(JSON.stringify({
-        currProject: action.payload,
+        currProject: projectName,
         projects: state.projects
       })))
       
