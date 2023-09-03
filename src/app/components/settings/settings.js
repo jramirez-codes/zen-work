@@ -1,30 +1,29 @@
 import React from "react";
-import { TextField, Slider, ToggleButtonGroup, ToggleButton, Button, Grid, Tooltip } from "@mui/material";
+import { TextField, ToggleButtonGroup, ToggleButton, Button, Grid, Tooltip} from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux'
-import { setDisplayUrl, updateYoutubeUrl, updateOpacity, updateBackgroundType, organizeCards, deleteState, groupCardsCenter } from '../../store/settingStore'
+import { AlphaPicker, HuePicker } from "react-color";
+import { setDisplayUrl, updateYoutubeUrl, updateBackgroundColor, updateBackgroundType, organizeCards, deleteState, groupCardsCenter } from '../../store/settingStore'
 import OpenWithIcon from '@mui/icons-material/OpenWith';
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 
 export default function Settings() {
-  const currURL = useSelector((state)=>state.settings.displayUrl)
-  const currOpacity = useSelector((state)=>state.settings.backgroundOpacity)
-  const currBackgroundType = useSelector((state)=>state.settings.backgroundType)
   const dispatch = useDispatch()
+  const currURL = useSelector((state)=>state.settings.displayUrl)
+  const currBackgroundType = useSelector((state)=>state.settings.backgroundType)
+  const currColor = useSelector((state)=>state.settings.backgroundColor)
   const currProject = useSelector(e=>e.settings.cacheName)
+
   return(
     <Grid container spacing={1} sx={{width:400}}>
-      {/* BACKGROUND TYPE */}
+      {/* BACKGROUND COLOR */}
+      <Grid item xs={10} sm={10} md={10} lg={10}>
+        <HuePicker width="100%" onChangeComplete={(e)=>{dispatch(updateBackgroundColor({rgb:{r:e.rgb.r,g:e.rgb.g,b:e.rgb.b, a:currColor.rgb.a}}))}} color={currColor.rgb}/>
+      </Grid>
+      <Grid item xs={2} sm={2} md={2} lg={2}>
+        <div style={{height:'100%', backgroundColor:'white'}} onClick={()=>{dispatch(updateBackgroundColor({rgb:{r:255,g:255,b:255, a:currColor.rgb.a}}))}}/>
+      </Grid>
       <Grid item xs={12} sm={12} md={12} lg={12}>
-        <p style={{margin:0}}>Card Opacity</p>
-        <Slider
-          max={1}
-          min={0}
-          value={currOpacity}
-          step={.01}
-          fullWidth
-          valueLabelDisplay="auto"
-          onChange={(e)=>{dispatch(updateOpacity(e.target.value))}}
-        />
+        <AlphaPicker width="100%" onChangeComplete={(e)=>{dispatch(updateBackgroundColor(e))}} color={currColor.rgb}/>
       </Grid>
       <Grid item xs={12} sm={12} md={12} lg={12}>
         {/* BACKGROUND SETTINGS */}

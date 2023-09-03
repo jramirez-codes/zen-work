@@ -37,10 +37,10 @@ export const settings = createSlice({
     displayUrl: "https://www.youtube.com/embed/vemLEwjIxow",
     youtubeUrl: "https://www.youtube.com/embed/vemLEwjIxow",
     backgroundOpacity: 1,
+    backgroundColor: {r:255,g:255,b:255},
     backgroundType: 'gradient',
     styleSettings: {
-      backgroundColor: 'rgba(255,255,255,1)',
-      marginRight: 0
+      backgroundColor: 'rgba(255,255,255,1)'
     },
     // Project Swapping
     projects: [],
@@ -131,6 +131,7 @@ export const settings = createSlice({
 
       // Get Cache of new State
       let newState = window.localStorage.getItem(newCacheState)
+      
       // Update Local States
       if(newState !== null && newState !== "") {
         newState = JSON.parse(unzip(newState))
@@ -253,18 +254,10 @@ export const settings = createSlice({
       // Update Cache
       window.localStorage.setItem(state.cacheName, zip(JSON.stringify(state)))
     },
-    // UI Settings
-    updateOpacity: (state, action) => {
-      state.backgroundOpacity = action.payload
-      state.styleSettings = {
-        backgroundColor: 'rgba(255,255,255, '+action.payload+')'
-      }
-      // Update Cache
-      window.localStorage.setItem(state.cacheName, zip(JSON.stringify(state)))
-    },
     updateBackgroundColor: (state, action) => {
+      state.backgroundColor = action.payload
       state.styleSettings = {
-        backgroundColor: 'rgba(255,255,255, '+state.backgroundOpacity+')'
+        backgroundColor: `rgba(${action.payload.rgb.r},${action.payload.rgb.g},${action.payload.rgb.b}, ${action.payload.rgb.a})`
       }
       // Update Cache
       window.localStorage.setItem(state.cacheName, zip(JSON.stringify(state)))
@@ -289,11 +282,11 @@ export const {
   setDisplayUrl
   , updateYoutubeUrl
   , addWindow 
-  , updateOpacity 
   , deleteWindow
   , onWindowHoverEnter
   , onWindowHoverExit
   , updateBackgroundType
+  , updateBackgroundColor
   , updateWindowData
   , updateWindowTitle
   , initalizeData
