@@ -1,4 +1,4 @@
-import { Button, Grid, Stack, CircularProgress} from "@mui/material";
+import { Button, Grid, Box, CircularProgress} from "@mui/material";
 import React from "react";
 
 async function getWeather(position) {
@@ -44,15 +44,10 @@ export default function WeatherV1(props) {
   return(
     <div>
       {weatherData === undefined?(
-        <Stack 
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          style={{marginBottom:'1vh'}}
-        >
-          <CircularProgress thickness={10} size={100}/>
-          <h3>Fetching Weather Data</h3>
-        </Stack>
+        <Box sx={{ display: 'flex' }}>
+          <h3>Fetching Data</h3>
+          <CircularProgress />
+        </Box>
       ):(
         <>
           <Grid
@@ -97,12 +92,13 @@ export default function WeatherV1(props) {
               <h3 style={{textAlign:'right'}}>{weatherData.current_weather.windspeed}</h3>
             </Grid>
           </Grid>
-          {/* Refresh Page */}
-          <div style={{textAlign:'center'}}>
-            <Button variant="outlined" onClick={()=>{getWeatherData()}}>Refresh</Button>
-          </div>
+
         </>
       )}
+      {/* Refresh Page */}
+      <div style={{textAlign:'center'}}>
+        <Button variant="outlined" onClick={()=>{getWeatherData()}}>Refresh</Button>
+      </div>
     </div>
   )
 }
