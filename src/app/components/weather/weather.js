@@ -14,8 +14,6 @@ async function getWeather(position) {
     .then(response => response.text())
     .then(result => JSON.parse(result))
   
-  console.log(data)
-
   return data
 }
 
@@ -31,7 +29,10 @@ export default function WeatherV1(props) {
       }
       let data = await getData()
       setWeatherData(data)
-      let date = new Date(data.current_weather.time)
+      let date = new Date()
+
+      console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
+
       setCurrTime(date.toLocaleString())
     });
 

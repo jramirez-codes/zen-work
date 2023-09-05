@@ -19,8 +19,11 @@ export default function Settings() {
       <Grid item xs={10} sm={10} md={10} lg={10}>
         <HuePicker width="100%" onChangeComplete={(e)=>{dispatch(updateBackgroundColor({rgb:{r:e.rgb.r,g:e.rgb.g,b:e.rgb.b, a:currColor.rgb.a}}))}} color={currColor.rgb}/>
       </Grid>
-      <Grid item xs={2} sm={2} md={2} lg={2}>
-        <div style={{height:'100%', backgroundColor:'white'}} onClick={()=>{dispatch(updateBackgroundColor({rgb:{r:255,g:255,b:255, a:currColor.rgb.a}}))}}/>
+      <Grid item xs={1} sm={1} md={1} lg={1}>
+        <div style={{height:'100%', backgroundColor:'white', borderStyle:'solid', borderWidth:1, borderColor:'gray'}} onClick={()=>{dispatch(updateBackgroundColor({rgb:{r:255,g:255,b:255, a:currColor.rgb.a}}))}}/>
+      </Grid>
+      <Grid item xs={1} sm={1} md={1} lg={1}>
+        <div style={{height:'100%', backgroundColor:'black', borderStyle:'solid', borderWidth:1, borderColor:'gray'}} onClick={()=>{dispatch(updateBackgroundColor({rgb:{r:0,g:0,b:0, a:currColor.rgb.a}}))}}/>
       </Grid>
       <Grid item xs={12} sm={12} md={12} lg={12}>
         <AlphaPicker width="100%" onChangeComplete={(e)=>{dispatch(updateBackgroundColor(e))}} color={currColor.rgb}/>
