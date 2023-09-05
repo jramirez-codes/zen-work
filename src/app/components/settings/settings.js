@@ -5,6 +5,7 @@ import { AlphaPicker, HuePicker } from "react-color";
 import { setDisplayUrl, updateYoutubeUrl, updateBackgroundColor, updateBackgroundType, organizeCards, deleteState, groupCardsCenter } from '../../store/settingStore'
 import OpenWithIcon from '@mui/icons-material/OpenWith';
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Settings() {
   const dispatch = useDispatch()
@@ -67,7 +68,7 @@ export default function Settings() {
       {/* DELETING PROJECT */}
       {currProject !== 'my-zen-work-home'? (
         <Grid item xs={12} sm={12} md={12} lg={12}>
-          <Button variant="outlined" color={'error'} fullWidth onClick={()=>{dispatch(deleteState())}}>Delete Project</Button>
+          <Button variant="outlined" color={'error'} fullWidth onClick={()=>{dispatch(deleteState())}} startIcon={<DeleteIcon/>}>Delete Project</Button>
         </Grid>
       ):null}
     </Grid>

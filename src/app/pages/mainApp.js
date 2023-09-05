@@ -1,7 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
 import './global.css' 
 import {useDispatch, useSelector} from "react-redux";
-import debounce from "../helperFunctions/debounce";
 import ControlsV2 from "../components/settings/controlsV2";
 import Background from "../components/background/background";
 import { initalizeData } from "../store/settingStore";

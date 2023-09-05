@@ -82,7 +82,6 @@ export default function Background(props) {
         width='100%'
         height='100%'
         src={props.currURL+'?enablejsapi=1&autoplay=1&rel=0'}
-        // src={`https://www.youtube.com/embed/${currURL}`}
         title="YouTube video player"
         frameborder="0" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; enablejsapi; rel;" 
