@@ -37,7 +37,7 @@ export const settings = createSlice({
     displayUrl: "https://www.youtube.com/embed/vemLEwjIxow",
     youtubeUrl: "https://www.youtube.com/embed/vemLEwjIxow",
     backgroundOpacity: 1,
-    backgroundColor: {r:255,g:255,b:255},
+    backgroundColor: {rgb:{r:255,g:255,b:255}},
     backgroundType: 'gradient',
     styleSettings: {
       backgroundColor: 'rgba(255,255,255,1)'
@@ -279,24 +279,33 @@ export const settings = createSlice({
 })
 
 export const { 
+  // CONFIGURE BACKGROUND
   setDisplayUrl
   , updateYoutubeUrl
+  , updateBackgroundType
+  , updateBackgroundColor
+
+  // CARD MANIPULATION
+  , organizeCards
+  , groupCardsCenter
+
+  // STATE MANAGEMENT
+  , initalizeData
+  , addState
+  , swapState
+  , deleteState
+
+  // CARD MANAGEMENT
   , addWindow 
   , deleteWindow
   , onWindowHoverEnter
   , onWindowHoverExit
-  , updateBackgroundType
-  , updateBackgroundColor
-  , updateWindowData
+  
+  // CONTENT MANAGEMENT
   , updateWindowTitle
-  , initalizeData
+  , updateWindowData
   , updateAnyWindowDataTypeAndCache
   , updateAnyWindowDataType
-  , organizeCards
-  , addState
-  , swapState
-  , deleteState
-  , groupCardsCenter
 } = settings.actions
 
 export default settings.reducer
