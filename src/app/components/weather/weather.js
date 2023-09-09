@@ -1,6 +1,7 @@
 import { Button, Grid, Stack, CircularProgress} from "@mui/material";
 import React from "react";
 import { weatherMapping } from "./helperFunctions/weatherMapping";
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 async function getWeather(position) {
   var myHeaders = new Headers();
@@ -11,7 +12,7 @@ async function getWeather(position) {
     redirect: 'follow'
   };
 
-  let data = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${position.latitude}&longitude=${position.longitude}&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m,precipitation_probability`, requestOptions)
+  let data = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${position.latitude}&longitude=${position.longitude}&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m,precipitation_probability,weathercode`, requestOptions)
     .then(response => response.text())
     .then(result => JSON.parse(result))
 
@@ -30,8 +31,6 @@ export default function Weather(props) {
       }
       let data = await getData()
       
-      console.log(data)
-      
       // Configure Data
       let letIsTime = (e) => e === data.current_weather.time
       let timeIndex = data.hourly.time.findIndex(letIsTime)
@@ -43,12 +42,12 @@ export default function Weather(props) {
         precipitation_probability: data.hourly.precipitation_probability[timeIndex],
         relativehumidity_2m: data.hourly.relativehumidity_2m[timeIndex],
         windspeed_10m: data.hourly.windspeed_10m[timeIndex],
-        weatherCode: data.current_weather.weathercode,
+        weatherCode: data.hourly.weathercode[timeIndex],
         units: data.hourly_units,
         pullTime: pullTime
       }
 
-      console.log(currWeatherData)
+      // console.log(currWeatherData)
 
       setWeatherData(currWeatherData)
     });
@@ -95,7 +94,7 @@ export default function Weather(props) {
           </Grid>
           {/* Refresh Page */}
           <div style={{textAlign:'center'}}>
-            <Button variant="outlined" onClick={()=>{getWeatherData()}}>Refresh</Button>
+            <Button variant="outlined" startIcon={<RefreshIcon />} onClick={()=>{getWeatherData()}}>{weatherData.pullTime}</Button>
           </div>
         </>
       )}
