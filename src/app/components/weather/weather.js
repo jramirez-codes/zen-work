@@ -5,13 +5,11 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 
 async function getWeather(position) {
   var myHeaders = new Headers();
-
   var requestOptions = {
     method: 'GET',
     headers: myHeaders,
     redirect: 'follow'
   };
-
   let data = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${position.latitude}&longitude=${position.longitude}&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m,precipitation_probability,weathercode`, requestOptions)
     .then(response => response.text())
     .then(result => JSON.parse(result))
@@ -60,7 +58,7 @@ export default function Weather(props) {
   }, [])
 
   return(
-    <div>
+    <>
       {/* Waiting for Data */}
       {weatherData === undefined?(
         <Stack 
@@ -98,6 +96,6 @@ export default function Weather(props) {
           </div>
         </>
       )}
-    </div>
+    </>
   )
 }
