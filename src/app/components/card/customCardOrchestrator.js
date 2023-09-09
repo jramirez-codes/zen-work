@@ -76,7 +76,7 @@ export default function CustomCardOrchestrator({obj, idx, currStyle, currLayers,
         ):null}
         {obj.windowType === 'weather'? (
           <CustomCard key={idx} windowIdx={idx} title={obj.title} currStyle={currStyle}>
-            <Weather key={idx} windowIdx={idx}/>
+            <Weather key={idx} windowIdx={idx} data={obj.data}/>
           </CustomCard>
         ):null}
         {obj.windowType === 'settings'? (

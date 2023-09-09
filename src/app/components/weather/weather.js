@@ -1,7 +1,10 @@
-import { Button, Grid, Stack, CircularProgress} from "@mui/material";
+import { Button, Grid, Stack, CircularProgress, Switch} from "@mui/material";
 import React from "react";
 import { weatherMapping } from "./helperFunctions/weatherMapping";
 import RefreshIcon from '@mui/icons-material/Refresh';
+import { toggleTemperature } from "./helperFunctions/toggleTemperature";
+import { useDispatch } from "react-redux";
+import { updateAnyWindowDataTypeAndCache } from "@/app/store/settingStore";
 
 async function getWeather(position) {
   var myHeaders = new Headers();
@@ -18,6 +21,7 @@ async function getWeather(position) {
 }
 
 export default function Weather(props) {
+  const dispatch = useDispatch()
   const [weatherData, setWeatherData] = React.useState(undefined)
 
   // Get Weather Data
@@ -32,8 +36,9 @@ export default function Weather(props) {
       // Configure Data
       let letIsTime = (e) => e === data.current_weather.time
       let timeIndex = data.hourly.time.findIndex(letIsTime)
-      let pullTime = new Date().toLocaleString()
-      pullTime = pullTime.substring(10, pullTime.length)
+      let pullTime = new Date().getTime()
+      let pullTimeString = new Date().toLocaleString()
+      pullTimeString = pullTimeString.substring(10, pullTimeString.length)
 
       let currWeatherData = {
         temperature_2m: data.hourly.temperature_2m[timeIndex],
@@ -42,11 +47,12 @@ export default function Weather(props) {
         windspeed_10m: data.hourly.windspeed_10m[timeIndex],
         weatherCode: data.hourly.weathercode[timeIndex],
         units: data.hourly_units,
+        pullTimeString: pullTimeString,
         pullTime: pullTime
       }
 
-      // console.log(currWeatherData)
-
+      // Update States
+      dispatch(updateAnyWindowDataTypeAndCache({dataType:'data',idx:props.windowIdx ,data:[currWeatherData]}))
       setWeatherData(currWeatherData)
     });
 
@@ -54,7 +60,12 @@ export default function Weather(props) {
 
   // Get Data on Initalization
   React.useEffect(()=>{
-    getWeatherData()
+    if(props.data.length === 0) {
+      getWeatherData()
+    }
+    else {
+      setWeatherData(props.data[0])
+    }
   }, [])
 
   return(
@@ -72,7 +83,7 @@ export default function Weather(props) {
         </Stack>
       ):(
         <>
-          <Grid container spacing={1}>
+          <Grid container spacing={1} style={{marginBottom:'1vh'}}>
             <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
               <Stack 
                 direction="column"
@@ -91,9 +102,10 @@ export default function Weather(props) {
             </Grid>
           </Grid>
           {/* Refresh Page */}
-          <div style={{textAlign:'center'}}>
-            <Button variant="outlined" startIcon={<RefreshIcon />} onClick={()=>{getWeatherData()}}>{weatherData.pullTime}</Button>
-          </div>
+          <Stack direction="row" spacing={2} justifyContent="space-between">
+            <Button variant="text" endIcon={<RefreshIcon />} onClick={()=>{getWeatherData()}}>{weatherData.pullTimeString}</Button>
+            <Switch onChange={()=>{setWeatherData(e=>toggleTemperature(e))}}/>
+          </Stack>
         </>
       )}
     </>
