@@ -17,7 +17,7 @@ function createCleanState(state, action) {
   state.currentLayers = []
   state.displayUrl = "https://www.youtube.com/embed/vemLEwjIxow"
   state.youtubeUrl = "https://www.youtube.com/embed/vemLEwjIxow"
-  state.backgroundOpacity = 1
+  state.backgroundColor = {rgb:{r:255,g:255,b:255}},
   state.backgroundType = 'gradient'
   state.styleSettings = {
     backgroundColor: 'rgba(255,255,255,1)',
@@ -36,7 +36,6 @@ export const settings = createSlice({
     // Card Settings
     displayUrl: "https://www.youtube.com/embed/vemLEwjIxow",
     youtubeUrl: "https://www.youtube.com/embed/vemLEwjIxow",
-    backgroundOpacity: 1,
     backgroundColor: {rgb:{r:255,g:255,b:255}},
     backgroundType: 'gradient',
     styleSettings: {
@@ -254,6 +253,7 @@ export const settings = createSlice({
       // Update Cache
       window.localStorage.setItem(state.cacheName, zip(JSON.stringify(state)))
     },
+    // Background
     updateBackgroundColor: (state, action) => {
       state.backgroundColor = action.payload
       state.styleSettings = {
@@ -267,7 +267,6 @@ export const settings = createSlice({
       // Update Cache
       window.localStorage.setItem(state.cacheName, zip(JSON.stringify(state)))
     },
-    // Youtube URL
     setDisplayUrl: (state, action)=>{
       state.displayUrl = action.payload
     },

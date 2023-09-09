@@ -1,5 +1,6 @@
 import { Button, Grid, Stack, CircularProgress} from "@mui/material";
 import React from "react";
+import { weatherMapping } from "./helperFunctions/weatherMapping";
 
 async function getWeather(position) {
   var myHeaders = new Headers();
@@ -10,27 +11,46 @@ async function getWeather(position) {
     redirect: 'follow'
   };
 
-  let data = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${position.latitude}&longitude=${position.longitude}&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m`, requestOptions)
+  let data = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${position.latitude}&longitude=${position.longitude}&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m,precipitation_probability`, requestOptions)
     .then(response => response.text())
     .then(result => JSON.parse(result))
-  
+
   return data
 }
 
 export default function Weather(props) {
   const [weatherData, setWeatherData] = React.useState(undefined)
-  const [currTime, setCurrTime] = React.useState('')
 
   // Get Weather Data
   function getWeatherData() {
     navigator.geolocation.getCurrentPosition(async function(position) {
+      // Make GET Request
       async function getData() {
         return await getWeather(position.coords)
       }
       let data = await getData()
-      setWeatherData(data)
-      let date = new Date(data.current_weather.time)
-      setCurrTime(date.toLocaleString())
+      
+      console.log(data)
+      
+      // Configure Data
+      let letIsTime = (e) => e === data.current_weather.time
+      let timeIndex = data.hourly.time.findIndex(letIsTime)
+      let pullTime = new Date().toLocaleString()
+      pullTime = pullTime.substring(10, pullTime.length)
+
+      let currWeatherData = {
+        temperature_2m: data.hourly.temperature_2m[timeIndex],
+        precipitation_probability: data.hourly.precipitation_probability[timeIndex],
+        relativehumidity_2m: data.hourly.relativehumidity_2m[timeIndex],
+        windspeed_10m: data.hourly.windspeed_10m[timeIndex],
+        weatherCode: data.current_weather.weathercode,
+        units: data.hourly_units,
+        pullTime: pullTime
+      }
+
+      console.log(currWeatherData)
+
+      setWeatherData(currWeatherData)
     });
 
   }
@@ -55,20 +75,22 @@ export default function Weather(props) {
         </Stack>
       ):(
         <>
-          <Grid container>
-            <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+          <Grid container spacing={1}>
+            <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
               <Stack 
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
                 style={{marginBottom:'1vh'}}
               >
-                <div style={{width:'100%', height:100, background:'green'}}/>
-                <h3 style={{textAlign:'center', margin:0}}>{weatherData.current_weather.temperature}</h3>
+                <img src={`./staticAssets/images/weather/${weatherMapping(weatherData.weatherCode)}.svg`} height='100'/>
               </Stack>
             </Grid>
-            <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-              
+            <Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
+              <h3 style={{textAlign:'left', margin:0}}>Temperature: {' '+weatherData.temperature_2m+" "+weatherData.units.temperature_2m}</h3>
+              <h3 style={{textAlign:'left', margin:0}}>Precipitation:{' '+weatherData.precipitation_probability+" "+weatherData.units.precipitation_probability}</h3>
+              <h3 style={{textAlign:'left', margin:0}}>Humidity:{' '+weatherData.relativehumidity_2m+" "+weatherData.units.relativehumidity_2m}</h3>
+              <h3 style={{textAlign:'left', margin:0}}>Wind:{' '+weatherData.windspeed_10m+" "+weatherData.units.windspeed_10m}</h3>
             </Grid>
           </Grid>
           {/* Refresh Page */}
